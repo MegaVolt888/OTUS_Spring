@@ -7,8 +7,10 @@ import java.util.UUID;
 
 @Data
 public class Question {
-    private final UUID id;
-    private final int questinQueue;
-    private final String question;
-    private final ArrayList<UUID> answers;  // задел для многовариантного ответа
+    private UUID id;
+    private int questinQueue;
+    private String question;
+    private ArrayList<UUID> answers;  // задел для многовариантного ответа
+
+
 }

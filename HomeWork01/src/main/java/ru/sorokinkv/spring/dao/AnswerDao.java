@@ -2,9 +2,11 @@ package ru.sorokinkv.spring.dao;
 
 import ru.sorokinkv.spring.model.Answer;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public interface AnswerDao {
-    List<Answer> getAllAnswers();
+    ArrayList<Answer> getAllAnswers();
+    Answer getAnswerByUUID(UUID uuid);
 
 }
