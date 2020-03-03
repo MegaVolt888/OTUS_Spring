@@ -10,6 +10,4 @@ public class Question {
     private UUID id;
     private String question;
     private ArrayList<UUID> answers;  // задел для многовариантного ответа
-
-
 }
