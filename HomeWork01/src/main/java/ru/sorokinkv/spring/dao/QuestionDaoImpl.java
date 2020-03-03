@@ -19,10 +19,9 @@ public class QuestionDaoImpl implements QuestionDao {
     private Function<String, Question> mapToItem = (line) -> {
         if (line.length() > 0) {
             ArrayList<UUID> answerArrayList = new ArrayList<>();
-            String[] p = line.split(";");// a CSV has comma separated lines
-
+            String[] p = line.split(";");
             Question item = new Question();
-            item.setId(UUID.fromString(p[0]));//<-- this is the first column in the csv file
+            item.setId(UUID.fromString(p[0]));
             item.setQuestion(p[1]);
             for (int i = 2; i < p.length; i++) {
                 answerArrayList.add(UUID.fromString(p[i]));
