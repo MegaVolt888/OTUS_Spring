@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface QuestionDao {
     ArrayList<Question> getAllQuestions() throws IOException;
+
     ArrayList<Question> setQuestionCorrect(ArrayList correctQuestionList);
 }

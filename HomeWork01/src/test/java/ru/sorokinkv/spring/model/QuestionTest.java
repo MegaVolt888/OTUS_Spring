@@ -11,7 +11,7 @@ class QuestionTest {
 
 
     @BeforeAll
-    static void createQuestion(){
+    static void createQuestion() {
         question.setQuestion("Test");
         question.setId(UUID.randomUUID());
         ArrayList<UUID> arrayList = new ArrayList<>();
@@ -23,14 +23,14 @@ class QuestionTest {
     @Test
     @DisplayName("Test getQuestionId")
     void getQuestionId() {
-        Assertions.assertNotNull(question.getId(),"Tested");
+        Assertions.assertNotNull(question.getId(), "Tested");
     }
 
     @Order(2)
     @Test
     @DisplayName("Test getQuestion")
     void getQuestion() {
-        Assertions.assertEquals("Test",question.getQuestion(),"Tested");
+        Assertions.assertEquals("Test", question.getQuestion(), "Tested");
     }
 
     @Order(3)
@@ -39,7 +39,7 @@ class QuestionTest {
     void setQuestionId() {
         UUID uuid = UUID.randomUUID();
         question.setId(uuid);
-        Assertions.assertEquals(uuid,question.getId(),"Tested");
+        Assertions.assertEquals(uuid, question.getId(), "Tested");
     }
 
     @Order(4)
@@ -47,14 +47,14 @@ class QuestionTest {
     @DisplayName("Test setQuestion")
     void setQuestion() {
         question.setQuestion("Tested");
-        Assertions.assertEquals("Tested",question.getQuestion(),"Tested");
+        Assertions.assertEquals("Tested", question.getQuestion(), "Tested");
     }
 
     @Order(5)
     @Test
     @DisplayName("Test getAnswers")
     void getAnswers() {
-        Assertions.assertNotNull(question.getAnswers(),"Tested");
+        Assertions.assertNotNull(question.getAnswers(), "Tested");
     }
 
     @Order(6)
@@ -65,6 +65,6 @@ class QuestionTest {
         arrayList.add(UUID.randomUUID());
         question.setAnswers(arrayList);
 
-        Assertions.assertEquals(arrayList,question.getAnswers(),"Tested");
+        Assertions.assertEquals(arrayList, question.getAnswers(), "Tested");
     }
 }

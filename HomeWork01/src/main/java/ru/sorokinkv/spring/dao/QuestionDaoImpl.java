@@ -38,7 +38,6 @@ public class QuestionDaoImpl implements QuestionDao {
         BufferedReader br = new BufferedReader(new InputStreamReader(questionsIS));
         inputList = br.lines().skip(1).map(mapToItem).filter(a -> Objects.nonNull(a)).collect(Collectors.toList());
         br.close();
-        //System.out.println(inputList);
         return new ArrayList<Question>(inputList);
     }
 

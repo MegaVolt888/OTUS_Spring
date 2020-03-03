@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface AnswerDao {
     ArrayList<Answer> getAllAnswers() throws IOException;
+
     Answer getAnswerByUUID(UUID uuid) throws IOException;
 
 }

@@ -24,8 +24,8 @@ public class Main {
         Scanner in = new Scanner(System.in);
         System.out.print("Введите ваше имя: ");
         userName = in.nextLine();
-        if(userName.length()==0) userName="User" + new Date().getTime();
-        System.out.println(userName +", введите ваш возраст: ");
+        if (userName.length() == 0) userName = "User" + new Date().getTime();
+        System.out.println(userName + ", введите ваш возраст: ");
         age = in.nextInt();
         in.nextLine();
 
@@ -73,20 +73,20 @@ public class Main {
 
 
         if (correctAnswer.size() > 0) {
-            System.out.println("\u001B[7m\u001B[32m\t " + userName +", Вы правильно ответили на следующие вопросы:\t\u001B[0m");
-            showRezults(correctAnswer, true);
+            System.out.println("\u001B[7m\u001B[32m\t " + userName + ", Вы правильно ответили на следующие вопросы:\t\u001B[0m");
+            showResults(correctAnswer, true);
 
         }
         if (inCorrectAnswer.size() > 0) {
-            System.out.println("\u001B[7m\u001B[31m\t" + userName +", Вы неправильно ответили на следующие вопросы:\t\u001B[0m");
-            showRezults(inCorrectAnswer, false);
+            System.out.println("\u001B[7m\u001B[31m\t" + userName + ", Вы неправильно ответили на следующие вопросы:\t\u001B[0m");
+            showResults(inCorrectAnswer, false);
 
         }
 
 
     }
 
-    private static void showRezults(HashMap hm, boolean correct) {
+    private static void showResults(HashMap hm, boolean correct) {
         String color = "\u001B[31m";
         String resetColor = "\u001B[0m";
         if (correct) color = "\u001B[32m";
@@ -114,7 +114,6 @@ public class Main {
                     }
                 }
             }
-
         });
     }
 }

@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public class AnswersServiceImpl implements AnswersService {
     private AnswerDao answerDao;
+
     public ArrayList<Answer> getAllAnswers() throws IOException {
         return answerDao.getAllAnswers();
     }
