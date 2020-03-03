@@ -43,7 +43,6 @@ public class Main {
                 }
                 System.out.print("Выберите номер верного ответа (можно ввести несколько вариантов через \",\"): ");
                 String input = in.nextLine();
-                System.out.println(input);
                 try {
                     Integer.parseInt(input.replaceAll(" ", "").replaceAll(",", ""));
                     inputCheck = false;
