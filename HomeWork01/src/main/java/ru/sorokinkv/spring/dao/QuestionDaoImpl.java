@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 public class QuestionDaoImpl implements QuestionDao {
-    String questions;
+    private String questions;
     private Function<String, Question> mapToItem = (line) -> {
         if (line.length() > 0) {
             ArrayList<UUID> answerArrayList = new ArrayList<>();
@@ -39,10 +39,6 @@ public class QuestionDaoImpl implements QuestionDao {
         inputList = br.lines().skip(1).map(mapToItem).filter(a -> Objects.nonNull(a)).collect(Collectors.toList());
         br.close();
         return new ArrayList<Question>(inputList);
-    }
-
-    public ArrayList<Question> setQuestionCorrect(ArrayList correctQuestionList) {
-        return null;
     }
 
     public void setQuestions(String questions) {

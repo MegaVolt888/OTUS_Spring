@@ -14,8 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class AnswerDaoImpl implements AnswerDao {
-    String answers;
-
+    private String answers;
     private Function<String, Answer> mapToItem = (line) -> {
         if (line.length() > 0) {
             ArrayList<UUID> answerArrayList = new ArrayList<>();
@@ -42,7 +41,6 @@ public class AnswerDaoImpl implements AnswerDao {
         ArrayList<Answer> answerList = this.getAllAnswers();
         return answerList.stream().filter(id -> id.getAnswerId().equals(uuid)).findFirst().get();
     }
-
 
     public void setAnswers(String answers) {
         this.answers = answers;
