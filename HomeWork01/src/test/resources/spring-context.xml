@@ -2,18 +2,20 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
     <bean id="answerDao" class="ru.sorokinkv.spring.dao.AnswerDaoImpl">
         <property name="answers" value="answers.csv"/>
     </bean>
     <bean id="answersService" class="ru.sorokinkv.spring.service.AnswersServiceImpl">
-        <property name="dao" ref="answerDao"/>
+        <constructor-arg name="answerDao" ref="answerDao"/>
     </bean>
-
     <bean id="questionDao" class="ru.sorokinkv.spring.dao.QuestionDaoImpl">
         <property name="questions" value="questions.csv"/>
     </bean>
     <bean id="questionService" class="ru.sorokinkv.spring.service.QuestionsServiceImpl">
-        <property name="dao" ref="questionDao"/>
+        <constructor-arg name="questionDao" ref="questionDao"/>
+    </bean>
+    <bean id="testStudents" class="ru.sorokinkv.spring.service.TestStudentImpl">
+        <constructor-arg name="questionService" ref="questionService"></constructor-arg>
+        <constructor-arg name="answersService" ref="answersService"></constructor-arg>
     </bean>
 </beans>

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class QuestionsServiceImpl implements QuestionsService {
     private QuestionDao questionDao;
 
+    public QuestionsServiceImpl(QuestionDao questionDao) {
+        this.questionDao = questionDao;
+    }
+
     public ArrayList<Question> getAllQuestion() {
         try {
             return questionDao.getAllQuestions();
@@ -17,9 +21,5 @@ public class QuestionsServiceImpl implements QuestionsService {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void setDao(QuestionDaoImpl dao) {
-        this.questionDao = dao;
     }
 }

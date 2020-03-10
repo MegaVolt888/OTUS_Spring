@@ -11,6 +11,11 @@ public class TestStudentImpl implements TestStudent {
     private static QuestionsService questionsService;
     private static AnswersService answersService;
 
+    public TestStudentImpl(QuestionsService questionService, AnswersService answersService) {
+        this.questionsService = questionService;
+        this.answersService = answersService;
+    }
+
     private static void showResults(HashMap hm, boolean correct) {
         String color = "\u001B[31m";
         String resetColor = "\u001B[0m";
@@ -108,13 +113,5 @@ public class TestStudentImpl implements TestStudent {
             System.out.println("\u001B[7m\u001B[31m\t" + userName + ", Вы неправильно ответили на следующие вопросы:\t\u001B[0m");
             showResults(inCorrectAnswer, false);
         }
-    }
-
-    public void setQuestionsS(QuestionsServiceImpl questionsS) {
-        questionsService = questionsS;
-    }
-
-    public void setAnswersS(AnswersServiceImpl answersS) {
-        answersService = answersS;
     }
 }
