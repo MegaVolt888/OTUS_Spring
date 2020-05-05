@@ -37,6 +37,7 @@ public class QuestionDaoImpl implements QuestionDao {
         this.questions = questionsFile;
     }
 
+    @Override
     public ArrayList<Question> getAllQuestions() throws IOException {
         List<Question> inputList;
         InputStream questionsIS = this.getClass().getClassLoader().getResourceAsStream(questions);
