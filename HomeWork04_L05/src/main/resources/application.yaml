@@ -1,0 +1,5 @@
+data:
+  answers: answers.csv
+  questions: questions.csv
+locale:
+  language-tag: en_US

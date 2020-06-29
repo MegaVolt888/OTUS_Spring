@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.sorokinkv</groupId>
-    <artifactId>homework03</artifactId>
+    <artifactId>homework04</artifactId>
     <version>0.0.1</version>
-    <name>HomeWork03</name>
+    <name>HomeWork04</name>
     <description>HomeWork03 for Spring Boot</description>
 
     <properties>
@@ -22,6 +22,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.shell</groupId>
+            <artifactId>spring-shell-starter</artifactId>
+            <version>2.0.1.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -46,6 +56,21 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.shell</groupId>
+            <artifactId>spring-shell-standard</artifactId>
+            <version>2.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.shell</groupId>
+            <artifactId>spring-shell-core</artifactId>
+            <version>2.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.5</version>
         </dependency>
     </dependencies>
 
