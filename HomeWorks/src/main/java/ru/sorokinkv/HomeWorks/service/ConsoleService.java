@@ -1,4 +1,4 @@
-package ru.sorokinkv.HomeWork05_L07.service;
+package ru.sorokinkv.HomeWorks.service;
 
 import org.springframework.stereotype.Service;
 

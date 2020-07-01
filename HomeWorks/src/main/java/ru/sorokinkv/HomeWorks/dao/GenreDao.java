@@ -1,6 +1,6 @@
-package ru.sorokinkv.HomeWork05_L07.dao;
+package ru.sorokinkv.HomeWorks.dao;
 
-import ru.sorokinkv.HomeWork05_L07.domain.Genre;
+import ru.sorokinkv.HomeWorks.domain.Genre;
 
 import java.util.List;
 

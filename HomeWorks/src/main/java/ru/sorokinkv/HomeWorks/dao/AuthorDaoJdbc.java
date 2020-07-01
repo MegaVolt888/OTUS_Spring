@@ -1,9 +1,9 @@
-package ru.sorokinkv.HomeWork05_L07.dao;
+package ru.sorokinkv.HomeWorks.dao;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.sorokinkv.HomeWork05_L07.domain.Author;
+import ru.sorokinkv.HomeWorks.domain.Author;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
