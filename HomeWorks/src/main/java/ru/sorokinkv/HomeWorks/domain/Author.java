@@ -1,6 +1,5 @@
-package ru.sorokinkv.HomeWork05_L07.domain;
+package ru.sorokinkv.HomeWorks.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

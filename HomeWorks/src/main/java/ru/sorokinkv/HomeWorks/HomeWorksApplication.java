@@ -1,20 +1,18 @@
-package ru.sorokinkv.HomeWork05_L07;
+package ru.sorokinkv.HomeWorks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import ru.sorokinkv.HomeWork05_L07.dao.AuthorDao;
-import ru.sorokinkv.HomeWork05_L07.dao.BookDao;
-import ru.sorokinkv.HomeWork05_L07.dao.GenreDao;
-import ru.sorokinkv.HomeWork05_L07.domain.Author;
-import ru.sorokinkv.HomeWork05_L07.domain.Book;
-import ru.sorokinkv.HomeWork05_L07.domain.Genre;
+import ru.sorokinkv.HomeWorks.dao.AuthorDao;
+import ru.sorokinkv.HomeWorks.dao.BookDao;
+import ru.sorokinkv.HomeWorks.dao.GenreDao;
+import ru.sorokinkv.HomeWorks.domain.Book;
 
 @SpringBootApplication
-public class HomeWork05L07Application {
+public class HomeWorksApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(HomeWork05L07Application.class, args);
+        ApplicationContext context = SpringApplication.run(HomeWorksApplication.class, args);
 
         BookDao bookDao = context.getBean(BookDao.class);
         AuthorDao authorDao = context.getBean(AuthorDao.class);

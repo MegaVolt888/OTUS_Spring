@@ -1,17 +1,11 @@
-package ru.sorokinkv.HomeWork05_L07.service;
+package ru.sorokinkv.HomeWorks.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellMethodAvailability;
-import org.springframework.shell.standard.ShellOption;
-import org.w3c.dom.ls.LSOutput;
-import ru.sorokinkv.HomeWork05_L07.dao.AuthorDaoJdbc;
-import ru.sorokinkv.HomeWork05_L07.dao.BookDaoJdbc;
-import ru.sorokinkv.HomeWork05_L07.dao.GenreDaoJdbc;
-import ru.sorokinkv.HomeWork05_L07.domain.Book;
-
-import java.util.Set;
+import ru.sorokinkv.HomeWorks.dao.AuthorDaoJdbc;
+import ru.sorokinkv.HomeWorks.dao.BookDaoJdbc;
+import ru.sorokinkv.HomeWorks.dao.GenreDaoJdbc;
 
 @ShellComponent
 @RequiredArgsConstructor

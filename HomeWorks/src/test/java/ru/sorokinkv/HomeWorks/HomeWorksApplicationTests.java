@@ -1,11 +1,11 @@
-package ru.sorokinkv.HomeWork05_L07;
+package ru.sorokinkv.HomeWorks;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-class HomeWork05L07ApplicationTests {
+class HomeWorksApplicationTests {
 
 	@Test
 	void contextLoads() {
