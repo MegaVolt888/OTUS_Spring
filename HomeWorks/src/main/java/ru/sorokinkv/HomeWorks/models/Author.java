@@ -18,7 +18,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "authot_name", nullable = false, unique = true)
+    @Column(name = "author_name", nullable = false, unique = true)
     private String authorName;
 
 //    public Author(String authorName) {

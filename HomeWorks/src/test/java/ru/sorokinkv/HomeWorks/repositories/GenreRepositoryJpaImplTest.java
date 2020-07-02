@@ -1,4 +1,4 @@
-package ru.sorokinkv.HomeWorks.dao;
+package ru.sorokinkv.HomeWorks.repositories;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,11 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @JdbcTest
 @DisplayName("Genre tests")
-@Import(GenreDaoJdbc.class)
-class GenreDaoJdbcTest {
+@Import(GenreRepositoryJpaImpl.class)
+class GenreRepositoryJpaImplTest {
 
     @Autowired
-    private GenreDaoJdbc genreDao;
+    private GenreRepositoryJpaImpl genreDao;
 
     @DisplayName("Genre count")
     @Test
@@ -27,15 +27,15 @@ class GenreDaoJdbcTest {
     @Test
     void insert() {
         Genre genre = new Genre("Test");
-        genreDao.insert(genre);
-        assertThat(genreDao.getByName("Test")).isEqualToComparingFieldByField(genre);
+        genreDao.save(genre);
+        assertThat(genreDao.findByName("Test")).isEqualToComparingFieldByField(genre);
     }
 
     @DisplayName("Genre getAll")
     @Test
     void getAll() {
         Genre genre = new Genre("Test");
-        genreDao.insert(genre);
-        assertThat(genreDao.getAll().size()).isEqualTo(2);
+        genreDao.save(genre);
+        assertThat(genreDao.findAll().size()).isEqualTo(2);
     }
 }

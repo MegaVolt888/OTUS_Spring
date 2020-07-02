@@ -1,4 +1,4 @@
-package ru.sorokinkv.HomeWorks.dao;
+package ru.sorokinkv.HomeWorks.repositories;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,12 +10,12 @@ import ru.sorokinkv.HomeWorks.models.Book;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JdbcTest
-@Import(BookDaoJdbc.class)
+@Import(BookRepositoryJpaImpl.class)
 @DisplayName("Book test")
-class BookDaoJdbcTest {
+class BookRepositoryJpaImplTest {
 
     @Autowired
-    private BookDaoJdbc bookDao;
+    private BookRepositoryJpaImpl bookDao;
 
     @Test
     @DisplayName("Book count")
@@ -27,8 +27,8 @@ class BookDaoJdbcTest {
     @DisplayName("Book insert")
     void insert() {
         Book book = new Book().createBook("Test", "Tester", "testing");
-        bookDao.insert(book);
-        Book actualBook = bookDao.getByTitle("Test");
+        bookDao.save(book);
+        Book actualBook = bookDao.findByTitle("Test");
         assertThat(actualBook).isEqualToComparingFieldByField(book);
 
     }
@@ -37,7 +37,7 @@ class BookDaoJdbcTest {
     @DisplayName("Book getAll")
     void getAll() {
         Book book = new Book().createBook("Test", "Tester", "testing");
-        bookDao.insert(book);
+        bookDao.save(book);
         assertThat(bookDao.count()).isEqualTo(3);
     }
 

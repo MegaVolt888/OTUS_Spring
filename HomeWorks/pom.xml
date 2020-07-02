@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.sorokinkv</groupId>
-    <artifactId>HomeWork05_L07</artifactId>
+    <artifactId>HomeWork06_L09</artifactId>
     <version>1.0</version>
-    <name>HomeWork05_L07</name>
+    <name>HomeWork06_L09</name>
 
     <properties>
         <java.version>11</java.version>
@@ -26,15 +26,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell-starter</artifactId>
-            <version>2.0.1.RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.shell</groupId>-->
+<!--            <artifactId>spring-shell-starter</artifactId>-->
+<!--            <version>2.0.1.RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.200</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -52,6 +52,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-tx</artifactId>-->
+<!--            <version>5.2.6.RELEASE</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
