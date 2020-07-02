@@ -1,6 +1,6 @@
 package ru.sorokinkv.HomeWorks.dao;
 
-import ru.sorokinkv.HomeWorks.domain.Genre;
+import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.util.List;
 

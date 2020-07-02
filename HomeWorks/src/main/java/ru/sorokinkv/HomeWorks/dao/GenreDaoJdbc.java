@@ -3,7 +3,7 @@ package ru.sorokinkv.HomeWorks.dao;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
-import ru.sorokinkv.HomeWorks.domain.Genre;
+import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

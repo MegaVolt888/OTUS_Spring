@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import ru.sorokinkv.HomeWorks.dao.AuthorDao;
 import ru.sorokinkv.HomeWorks.dao.BookDao;
 import ru.sorokinkv.HomeWorks.dao.GenreDao;
-import ru.sorokinkv.HomeWorks.domain.Book;
+import ru.sorokinkv.HomeWorks.models.Book;
 
 @SpringBootApplication
 public class HomeWorksApplication {
