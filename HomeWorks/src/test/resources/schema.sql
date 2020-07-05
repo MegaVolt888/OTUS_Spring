@@ -13,19 +13,19 @@ create sequence book_id;
 
 create table authors(
     id bigint not null default nextval('author_id'),
-    name varchar(255) not null,
+    name varchar(255) not null unique,
     primary key (id)
 );
 
 create table genres(
     id bigint default nextval('genre_id'),
-    name varchar(255),
+    name varchar(255) not null unique,
     primary key (id)
 );
 
 create table books (
     id bigint default nextval('book_id'),
-    title varchar(1000),
+    title varchar(1000) not null unique,
     author_id bigint,
     genre_id bigint,
     comment_id bigint,
