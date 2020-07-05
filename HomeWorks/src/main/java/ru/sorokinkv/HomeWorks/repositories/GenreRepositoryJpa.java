@@ -5,13 +5,17 @@ import ru.sorokinkv.HomeWorks.models.Genre;
 import java.util.List;
 
 public interface GenreRepositoryJpa {
-    int count();
+    long count();
 
-    Genre save(Genre genre);
+    void save(Genre genre);
 
-    Genre findByName(String genreName);
+    void updateNameById(Genre genre);
 
-    Genre findById(String uuid);
+    void deleteById(long id);
+
+    Genre findById(long id);
+
+    Genre findByName(String name);
 
     List<Genre> findAll();
 }

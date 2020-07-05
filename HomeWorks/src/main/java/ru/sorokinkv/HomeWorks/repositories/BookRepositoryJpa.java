@@ -5,11 +5,21 @@ import ru.sorokinkv.HomeWorks.models.Book;
 import java.util.List;
 
 public interface BookRepositoryJpa {
-    int count();
+    long count();
 
-    Book save(Book book);
+    void save(Book book);
 
-    List<Book> findAll();
+    void updateBookById(Book book);
+
+    void deleteById(long id);
+
+    Book findById(long id);
 
     Book findByTitle(String title);
+
+    List<Book> findByAuthor(String name);
+
+    List<Book> findByGenre(String name);
+
+    List<Book> findAll();
 }

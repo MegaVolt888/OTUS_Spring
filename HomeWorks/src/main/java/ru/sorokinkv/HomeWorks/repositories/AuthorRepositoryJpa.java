@@ -5,13 +5,17 @@ import ru.sorokinkv.HomeWorks.models.Author;
 import java.util.List;
 
 public interface AuthorRepositoryJpa {
-    int count();
+    long count();
 
-    Author save(Author author);
+    void save(Author author);
 
-    Author findByName(String authorName);
+    void updateName(Author author);
 
-    Author findById(String uuid);
+    void deleteById(long id);
+
+    Author findById(long id);
+
+    Author findByName(String fullname);
 
     List<Author> findAll();
 }

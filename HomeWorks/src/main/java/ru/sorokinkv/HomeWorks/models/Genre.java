@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -13,20 +12,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "genres")
 public class Genre {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @SequenceGenerator(name = "genre_id", sequenceName = "gentre_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genre_id")
+    private long id;
 
     @Column(name = "name", nullable = false, unique = true)
-    private String genreName;
-
-//    public Genre(String genreName) {
-//        this.genreName = genreName;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return genreName;
-//    }
+    private String name;
 }

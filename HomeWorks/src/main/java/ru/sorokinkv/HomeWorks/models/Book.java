@@ -3,55 +3,33 @@ package ru.sorokinkv.HomeWorks.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "books")
+@NamedEntityGraph(name = "book-entity-graph", attributeNodes = {
+        @NamedAttributeNode("author"),
+        @NamedAttributeNode("genre")
+})
 public class Book {
 
     @Id
+    @SequenceGenerator(name = "book_id", sequenceName = "book_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    private long id;
 
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @OneToMany(targetEntity = Author.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
-    private Author author = new Author();
+    private Author author;
 
-
-    @Fetch(FetchMode.SUBSELECT)
-    @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
-    private Genre genre = new Genre();
-//
-//    public Book(String title, Author author, Genre genre) {
-//        this.title = title;
-//        this.author = author;
-//        this.genre = genre;
-//    }
-//
-//    public Book() {
-//    }
-//
-//    public Book createBook(String title, String authorName, String genreName) {
-//        return new Book(title, new Author(authorName), new Genre(genreName));
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Book{" +
-//                "title='" + title + '\'' +
-//                ", author=" + author +
-//                ", genre=" + genre +
-//                '}';
-//    }
+    private Genre genre;
 }

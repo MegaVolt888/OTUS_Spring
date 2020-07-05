@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
 import javax.persistence.*;
 
 @Data
@@ -15,18 +14,11 @@ import javax.persistence.*;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @SequenceGenerator(name = "author_id", sequenceName = "author_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id")
+    private long id;
 
-    @Column(name = "author_name", nullable = false, unique = true)
-    private String authorName;
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
 
-//    public Author(String authorName) {
-//        this.authorName = authorName;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return authorName;
-//    }
 }
