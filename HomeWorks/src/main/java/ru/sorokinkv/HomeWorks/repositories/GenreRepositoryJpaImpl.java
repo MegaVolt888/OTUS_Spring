@@ -11,19 +11,20 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Repository
 public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional(readOnly = true)
     @Override
     public long count() {
         TypedQuery<Long> query = em.createQuery("select count(g) from Genre g", Long.class);
         return query.getSingleResult();
     }
 
+    @Transactional
     @Override
     public void save(Genre genre) {
         if (genre.getId() <= 0) {
@@ -33,11 +34,13 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
         }
     }
 
+    @Transactional
     @Override
     public void updateNameById(Genre genre) {
         em.merge(genre);
     }
 
+    @Transactional
     @Override
     public void deleteById(long id) {
         Query query = em.createQuery("delete from Genre g where g.id = :id");
@@ -45,11 +48,13 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
         query.executeUpdate();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Genre findById(long id) {
         return Optional.ofNullable(em.find(Genre.class, id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Genre findByName(String name) {
         TypedQuery<Genre> query = em.createQuery("select g from Genre g where g.name = :name", Genre.class);
@@ -57,6 +62,7 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
         return query.getSingleResult();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Genre> findAll() {
         TypedQuery<Genre> query = em.createQuery("select g from Genre g", Genre.class);

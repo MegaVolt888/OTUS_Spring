@@ -4,22 +4,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sorokinkv.HomeWorks.models.Book;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Repository
 public class BookRepositoryJpaImpl implements BookRepositoryJpa {
+
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional(readOnly = true)
     @Override
     public long count() {
-        TypedQuery<Long> query = em.createQuery("select count(b) from Book b", Long.class);
+        TypedQuery<Long> query = em.createQuery("select count(b) from Book b  ", Long.class);
         return query.getSingleResult();
     }
 
+    @Transactional
     @Override
     public void save(Book book) {
         if (book.getId() <= 0) {
@@ -29,6 +34,7 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
         }
     }
 
+    @Transactional
     @Override
     public void updateBookById(Book book) {
         em.merge(book);
@@ -41,41 +47,51 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
         query.executeUpdate();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Book findById(long id) {
         return Optional.ofNullable(em.find(Book.class, id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Book findByTitle(String title) {
-        TypedQuery<Book> query = em.createQuery("select b from Book b where b.title = :title", Book.class);
+        TypedQuery<Book> query = em.createQuery("select b from Book b " +
+                "join fetch b.author " +
+                "join fetch b.genre " +
+                "where b.title = :title", Book.class);
         query.setParameter("title", title);
         return query.getSingleResult();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Book> findByAuthor(String name) {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-entity-graph");
-        return em.createQuery("select b from Book b where b.author.name = :name", Book.class)
+        return em.createQuery("select b from Book b  " +
+                "join fetch b.author " +
+                "join fetch b.genre " +
+                "where b.author.name = :name", Book.class)
                 .setParameter("name", name)
-                .setHint("javax.persistence.fetchgraph", entityGraph)
                 .getResultList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Book> findByGenre(String name) {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-entity-graph");
-        return em.createQuery("select b from Book b where b.genre.name = :name", Book.class)
+        return em.createQuery("select b from Book b  " +
+                "join fetch b.author " +
+                "join fetch b.genre " +
+                "where b.genre.name = :name", Book.class)
                 .setParameter("name", name)
-                .setHint("javax.persistence.fetchgraph", entityGraph)
                 .getResultList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Book> findAll() {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-entity-graph");
-        return em.createQuery("select b from Book b", Book.class)
-                .setHint("javax.persistence.fetchgraph", entityGraph)
+        return em.createQuery("select b from Book b  " +
+                "join fetch b.author " +
+                "join fetch b.genre ", Book.class)
                 .getResultList();
     }
 }
