@@ -14,6 +14,8 @@ import ru.sorokinkv.HomeWorks.models.Genre;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static ru.sorokinkv.HomeWorks.service.MessageList.ENTER_AUTHOR_NAME;
+import static ru.sorokinkv.HomeWorks.service.MessageList.ENTER_GENRE_NAME;
 
 @DataJpaTest
 @DisplayName("Book test")
@@ -44,7 +46,6 @@ class BookServiceImplTest {
     @Test
     void shouldReturnExpectedBookCount() {
         long count = bookRepository.count();
-
         assertThat(count).isEqualTo(DEFAULT_BOOKS_COUNT);
     }
 
@@ -83,7 +84,7 @@ class BookServiceImplTest {
     @DisplayName("получение книги из БД по имени автора")
     @Test
     void shouldReturnBookByAuthor() {
-        List<Book> books = bookRepository.findByAuthor(TEST_AUTHOR_NAME);
+        List<Book> books = bookRepository.findByAuthor(getAuthor(TEST_AUTHOR_NAME));
         for (Book book : books) {
             assertThat(book.getAuthor().getName()).isEqualTo(TEST_AUTHOR_NAME);
         }
@@ -92,7 +93,7 @@ class BookServiceImplTest {
     @DisplayName("получение книги из БД по названию жанра")
     @Test
     void shouldReturnBookByGenre() {
-        List<Book> books = bookRepository.findByGenre(TEST_GENRE_NAME);
+        List<Book> books = bookRepository.findByGenre(getGenre(TEST_GENRE_NAME));
         for (Book book : books) {
             assertThat(book.getGenre().getName()).isEqualTo(TEST_GENRE_NAME);
         }
@@ -116,6 +117,15 @@ class BookServiceImplTest {
         Author author = authorRepository.findById(TEST_AUTHOR_ID);
         Genre genre = genreRepository.findById(TEST_GENRE_ID);
         return new Book(id, TEST_BOOK_TITLE, author, genre);
+    }
+    public Genre getGenre(String name) {
+        Genre genre = genreRepository.findByName(name);
+        return genre;
+    }
+
+    public Author getAuthor(String name) {
+        Author author = authorRepository.findByName(name);
+        return author;
     }
 
 }

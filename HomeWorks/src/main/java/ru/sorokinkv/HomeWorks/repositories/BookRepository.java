@@ -8,15 +8,15 @@ import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.util.List;
 
-public interface BookRepository  extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
     Book findById(long id);
 
     Book findByTitle(String title);
 
-    List<Book> findByAuthor(String name);
+    List<Book> findByAuthor(Author author);
 
-    List<Book> findByGenre(String name);
+    List<Book> findByGenre(Genre genre);
 
     @EntityGraph(attributePaths = {"author", "genre"})
     List<Book> findAll();

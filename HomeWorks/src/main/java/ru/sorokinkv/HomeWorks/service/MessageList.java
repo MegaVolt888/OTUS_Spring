@@ -4,8 +4,9 @@ public interface MessageList {
     String ENTER_BOOK_TITLE = "Название книги:";
     String BOOK_SAVE = "Книга добавлена";
     String BOOK_UPDATE = "Книга обновлена";
+    String ENTER_BOOK_TO_DELETE = "Удаление книги.";
+    String ENTER_BOOK_TO_UPDATE = "Изменение книги.";
     String BOOK_DELETED_SUCCESS = "Книга удалена";
-    String ENTER_DELETE_BOOK_TITLE = "Введите название книги, которую хотите удалить:";
     String BOOK_NOT_FOUND = "Книга не найдена";
 
     String ENTER_GENRE_NAME = "Название жанра:";
@@ -13,9 +14,12 @@ public interface MessageList {
     String GENRE_NOT_FOUND = "Жанр не найден";
 
     String ENTER_AUTHOR_NAME = "Введите имя автора:";
+    String AUTHOR_DELETE = "Удаление автора";
     String AUTHOR_SAVE = "Автор добавлен";
+    String AUTHOR_SAVE_TITLE = "Добавление автора";
     String AUTHOR_NOT_FOUND = "Автор не найден";
-    String AUTHOR_UPDATE = "Имя автора изменено";
+    String AUTHOR_UPDATE = "Изменение автора";
+    String AUTHOR_UPDATED = "Имя автора изменено";
     String AUTHOR_DELETED_SUCCESS = "Автор удален вместе с книгами";
     String ENTER_NEW_AUTHOR_NAME = "Введите новое имя автора";
 
