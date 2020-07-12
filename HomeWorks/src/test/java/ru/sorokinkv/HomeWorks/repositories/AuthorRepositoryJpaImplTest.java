@@ -62,7 +62,7 @@ class AuthorRepositoryJpaImplTest {
     @DisplayName("удаление автора из БД")
     @Test
     void shoudDeleteAuthor() {
-        repositoryJpa.deleteById(TEST_AUTHOR_ID);
+        repositoryJpa.deleteAuthor(repositoryJpa.findById(TEST_AUTHOR_ID));
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
             repositoryJpa.findById(TEST_AUTHOR_ID);
         });

@@ -14,7 +14,7 @@ public interface GenreRepositoryJpa {
 
     void updateNameById(Genre genre);
 
-    void deleteById(long id);
+    void deleteGenre(Genre genre);
 
     Genre findById(long id);
 

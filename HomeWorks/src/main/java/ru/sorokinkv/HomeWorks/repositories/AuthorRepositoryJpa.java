@@ -13,7 +13,7 @@ public interface AuthorRepositoryJpa {
 
     void updateName(Author author);
 
-    void deleteById(long id);
+    void deleteAuthor(Author author);
 
     Author findById(long id);
 

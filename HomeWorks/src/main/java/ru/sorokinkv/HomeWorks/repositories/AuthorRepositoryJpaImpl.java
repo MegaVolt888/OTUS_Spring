@@ -47,8 +47,8 @@ public class AuthorRepositoryJpaImpl implements AuthorRepositoryJpa {
 
     @Transactional
     @Override
-    public void deleteById(long id) {
-        em.remove(findById(id));
+    public void deleteAuthor(Author author) {
+        em.remove(author);
     }
 
     @Transactional

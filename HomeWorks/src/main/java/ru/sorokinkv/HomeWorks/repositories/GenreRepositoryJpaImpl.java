@@ -43,8 +43,8 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
 
     @Transactional
     @Override
-    public void deleteById(long id) {
-        em.remove(findById(id));
+    public void deleteGenre(Genre genre) {
+        em.remove(genre);
     }
 
     @Transactional

@@ -101,7 +101,7 @@ public class ShellService {
         messageService.showMessage(ENTER_AUTHOR_NAME);
         String value = messageService.getMessage();
         Author author = authorRepository.findByName(value);
-        authorRepository.deleteById(author.getId());
+        authorRepository.deleteAuthor(author);
         messageService.showMessage("Автор \"" + value + "\" " + DELETED_SUCCESSFULLY);
     }
 
@@ -124,7 +124,7 @@ public class ShellService {
         messageService.showMessage(ENTER_GENRE_NAME);
         String value = messageService.getMessage();
         Genre genre = genreRepository.findByName(value);
-        genreRepository.deleteById(genre.getId());
+        genreRepository.deleteGenre(genre);
         messageService.showMessage("Жанр \"" + value + "\" " + DELETED_SUCCESSFULLY);
     }
 
