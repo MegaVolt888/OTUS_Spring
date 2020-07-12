@@ -11,7 +11,7 @@ public interface BookRepositoryJpa {
 
     void updateBookById(Book book);
 
-    void deleteById(long id);
+    void deleteBook(Book book);
 
     Book findById(long id);
 

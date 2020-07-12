@@ -63,7 +63,7 @@ public class ShellService {
         messageService.showMessage(ENTER_DELETE_BOOK_TITLE);
         String title = messageService.getMessage();
         Book book = bookRepository.findByTitle(title);
-        bookRepository.deleteById(book.getId());
+        bookRepository.deleteBook(book);
         messageService.showMessage("Книга \"" + title + "\" успешно удалена.");
     }
 

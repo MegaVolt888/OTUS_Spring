@@ -30,7 +30,7 @@ class BookRepositoryJpaImplTest {
     static final String TEST_AUTHOR_NAME = "Sir Arthur Conan Doyle";
     static final String EXPECTED_TEST_BOOK_TITLE = "Favorite Sherlock Holmes Detective Stories";
     static final String TEST_GENRE_NAME = "detective";
-    static final long TEST_BOOK_ID = 3L;
+    static final long TEST_BOOK_ID = 1L;
     static final long TEST_AUTHOR_ID = 1L;
     static final int EXPECTED_NUMBER_OF_BOOKS = 2;
     static final int EXPECTED_QERIES_COUNT = 1;
@@ -76,7 +76,8 @@ class BookRepositoryJpaImplTest {
     @DisplayName("удаление книги из БД")
     @Test
     void shouldDeleteBook() {
-        bookRepositoryJpa.deleteById(TEST_BOOK_ID);
+        Book book = bookRepositoryJpa.findById(TEST_BOOK_ID);
+        bookRepositoryJpa.deleteBook(book);
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
             bookRepositoryJpa.findById(TEST_BOOK_ID);
         });
