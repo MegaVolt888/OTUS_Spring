@@ -44,7 +44,7 @@ class GenreRepositoryJpaImplTest {
     @DisplayName("добавление жанра в БД")
     @Test
     void shoudInsertGenre() {
-        Genre expected = new Genre(1, EXPECTED_GENRE_NAME);
+        Genre expected = new Genre(1, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
         Genre actual = genreRepository.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -53,7 +53,7 @@ class GenreRepositoryJpaImplTest {
     @DisplayName("изменение жанра в БД")
     @Test
     void shouldUpdateGenre() {
-        genreRepository.deleteById(TEST_GENRE_ID);
+        genreRepository.deleteGenre(genreRepository.findById(TEST_GENRE_ID));
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
             genreRepository.findById(TEST_GENRE_ID);
         });
@@ -63,7 +63,7 @@ class GenreRepositoryJpaImplTest {
     @DisplayName("удаление жанра из БД")
     @Test
     void shoudDeleteGenre() {
-        genreRepository.deleteById(TEST_GENRE_ID);
+        genreRepository.deleteGenre(genreRepository.findById(TEST_GENRE_ID));
         long count = genreRepository.count();
         assertThat(count).isEqualTo(DEFAULT_COUNT_AFTER_DELETE);
     }

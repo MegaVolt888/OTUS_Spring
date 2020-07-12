@@ -17,7 +17,7 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public long count() {
         TypedQuery<Long> query = em.createQuery("select count(b) from Book b  ", Long.class);
@@ -47,51 +47,35 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
         query.executeUpdate();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Book findById(long id) {
         return Optional.ofNullable(em.find(Book.class, id)).orElseThrow(() -> new RuntimeException(String.valueOf(id)));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public Book findByTitle(String title) {
         TypedQuery<Book> query = em.createQuery("select b from Book b " +
-                "join fetch b.author " +
-                "join fetch b.genre " +
                 "where b.title = :title", Book.class);
         query.setParameter("title", title);
         return query.getSingleResult();
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<Book> findByAuthor(String name) {
-        return em.createQuery("select b from Book b  " +
-                "join fetch b.author " +
-                "join fetch b.genre " +
-                "where b.author.name = :name", Book.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public List<Book> findByGenre(String name) {
         return em.createQuery("select b from Book b  " +
-                "join fetch b.author " +
-                "join fetch b.genre " +
                 "where b.genre.name = :name", Book.class)
                 .setParameter("name", name)
                 .getResultList();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public List<Book> findAll() {
-        return em.createQuery("select b from Book b  " +
-                "join fetch b.author " +
-                "join fetch b.genre ", Book.class)
+        return em.createQuery("select b from Book b  " //+
+                , Book.class)
                 .getResultList();
     }
 }

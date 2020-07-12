@@ -1,8 +1,10 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
 import ru.sorokinkv.HomeWorks.models.Author;
+import ru.sorokinkv.HomeWorks.models.Book;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AuthorRepositoryJpa {
     long count();
@@ -11,11 +13,13 @@ public interface AuthorRepositoryJpa {
 
     void updateName(Author author);
 
-    void deleteById(long id);
+    void deleteAuthor(Author author);
 
     Author findById(long id);
 
-    Author findByName(String fullname);
+    Author findByName(String name);
 
     List<Author> findAll();
+
+    Set<Book> getAllBooks(String name);
 }

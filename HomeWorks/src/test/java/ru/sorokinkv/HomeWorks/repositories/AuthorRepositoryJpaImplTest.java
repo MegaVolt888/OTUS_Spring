@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 @DisplayName("Author repository test")
-@Import(AuthorRepositoryJpaImpl.class)
+@Import({AuthorRepositoryJpaImpl.class})
 class AuthorRepositoryJpaImplTest {
     static final long AUTHORS_COUNT_IN_DB = 1;
     static final int EXEPECTED_AUTHORS = 1;
@@ -44,7 +44,7 @@ class AuthorRepositoryJpaImplTest {
     @DisplayName("добавление автора в БД")
     @Test
     void shouldToSaveAuthor() {
-        Author expected = new Author(0, EXPECTED_AUTHOR_NAME);
+        Author expected = new Author(0, EXPECTED_AUTHOR_NAME,null);
         repositoryJpa.save(expected);
         Author actual = repositoryJpa.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -53,7 +53,7 @@ class AuthorRepositoryJpaImplTest {
     @DisplayName("изменнение автора в БД")
     @Test
     void shouldUpdateAuthor() {
-        Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME);
+        Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME,null);
         repositoryJpa.save(expected);
         Author actual = repositoryJpa.findById(TEST_AUTHOR_ID);
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -62,7 +62,7 @@ class AuthorRepositoryJpaImplTest {
     @DisplayName("удаление автора из БД")
     @Test
     void shoudDeleteAuthor() {
-        repositoryJpa.deleteById(TEST_AUTHOR_ID);
+        repositoryJpa.deleteAuthor(repositoryJpa.findById(TEST_AUTHOR_ID));
         Throwable thrown = assertThrows(RuntimeException.class, () -> {
             repositoryJpa.findById(TEST_AUTHOR_ID);
         });

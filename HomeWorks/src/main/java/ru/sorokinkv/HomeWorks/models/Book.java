@@ -21,11 +21,11 @@ public class Book {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Author.class)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Genre.class)
     @JoinColumn(name = "genre_id")
     private Genre genre;
 }

@@ -6,7 +6,7 @@ spring:
     data: data.sql
 
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     hibernate:
       ddl-auto: none
 

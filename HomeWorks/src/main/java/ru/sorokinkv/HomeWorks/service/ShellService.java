@@ -12,6 +12,7 @@ import ru.sorokinkv.HomeWorks.repositories.BookRepositoryJpa;
 import ru.sorokinkv.HomeWorks.repositories.GenreRepositoryJpa;
 
 import java.util.List;
+import java.util.Set;
 
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
@@ -27,30 +28,26 @@ public class ShellService {
     @ShellMethod(value = "Create book", key = {"cb", "create book"})
     public void createBook() {
         String title = getMessage(ENTER_BOOK_TITLE);
-        Author author = getAuthor();
-        bookRepository.save(new Book(0, title, author, getGenre()));
+        bookRepository.save(new Book(0, title, getAuthor(), getGenre()));
         messageService.showMessage("Добавлена книга: " + title);
     }
 
     @ShellMethod(value = "Search books by title", key = {"sbbt", "search book by title"})
     public Book searchBookByName() {
         messageService.showMessage(ENTER_BOOK_TITLE);
-        String value = messageService.getMessage();
-        return bookRepository.findByTitle(value);
+        return bookRepository.findByTitle(messageService.getMessage());
     }
 
     @ShellMethod(value = "Search books by author", key = {"sbba", "search books by author"})
-    public List<Book> searchBookByAuthor() {
+    public Set<Book> searchBookByAuthor() {
         messageService.showMessage(ENTER_AUTHOR_NAME);
-        String value = messageService.getMessage();
-        return bookRepository.findByAuthor(value);
+        return authorRepository.getAllBooks(messageService.getMessage());
     }
 
     @ShellMethod(value = "Search books by genre", key = {"sbbg", "search books by genre"})
-    public List<Book> searchBookByGenre() {
+    public Set<Book> searchBookByGenre() {
         messageService.showMessage(ENTER_GENRE_NAME);
-        String value = messageService.getMessage();
-        return bookRepository.findByGenre(value);
+        return genreRepository.getAllBooks(messageService.getMessage());
     }
 
     @ShellMethod(value = "Update book", key = {"ub", "update book"})
@@ -78,18 +75,18 @@ public class ShellService {
 
     @ShellMethod(value = "Insert author", key = {"ca"})
     private void createAuthor() {
-        String fullname = getMessage(ENTER_AUTHOR_NAME);
-        Author author = new Author(0, fullname);
+        String name = getMessage(ENTER_AUTHOR_NAME);
+        Author author = new Author(0, name, null);
         authorRepository.save(author);
     }
 
     @ShellMethod(value = "Update author", key = {"ua", "update author"})
     public void updateAuthor() {
-        String fullname = getMessage(ENTER_AUTHOR_NAME);
-        Author author = authorRepository.findByName(fullname);
-        String changeFullName = getMessage(ENTER_NEW_AUTHOR_FULLNAME);
-        authorRepository.updateName(new Author(author.getId(), changeFullName));
-        messageService.showMessage("Автор успешно изменен: " + changeFullName);
+        String name = getMessage(ENTER_AUTHOR_NAME);
+        Author author = authorRepository.findByName(name);
+        String changeName = getMessage(ENTER_NEW_AUTHOR_FULLNAME);
+        authorRepository.updateName(new Author(author.getId(), changeName, null));
+        messageService.showMessage("Автор успешно изменен: " + changeName);
     }
 
     @ShellMethod(value = "Search authors by name", key = {"sabn", "author name"})
@@ -104,7 +101,7 @@ public class ShellService {
         messageService.showMessage(ENTER_AUTHOR_NAME);
         String value = messageService.getMessage();
         Author author = authorRepository.findByName(value);
-        authorRepository.deleteById(author.getId());
+        authorRepository.deleteAuthor(author);
         messageService.showMessage("Автор \"" + value + "\" " + DELETED_SUCCESSFULLY);
     }
 
@@ -127,7 +124,7 @@ public class ShellService {
         messageService.showMessage(ENTER_GENRE_NAME);
         String value = messageService.getMessage();
         Genre genre = genreRepository.findByName(value);
-        genreRepository.deleteById(genre.getId());
+        genreRepository.deleteGenre(genre);
         messageService.showMessage("Жанр \"" + value + "\" " + DELETED_SUCCESSFULLY);
     }
 
@@ -165,12 +162,12 @@ public class ShellService {
     }
 
     private Genre insertAndReturnGenre(String name) {
-        genreRepository.save(new Genre(0, name));
+        genreRepository.save(new Genre(0, name, null));
         return genreRepository.findByName(name);
     }
 
     private Author insertAndReturnAuthor(String name) {
-        authorRepository.save(new Author(0, name));
+        authorRepository.save(new Author(0, name, null));
         return authorRepository.findByName(name);
     }
 }

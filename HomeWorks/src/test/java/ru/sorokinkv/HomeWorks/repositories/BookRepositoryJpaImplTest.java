@@ -13,6 +13,7 @@ import ru.sorokinkv.HomeWorks.models.Book;
 import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -92,7 +93,8 @@ class BookRepositoryJpaImplTest {
     @DisplayName("получение книги из БД по имени автора")
     @Test
     void shouldReturnBookByAuthor() {
-        List<Book> books = bookRepositoryJpa.findByAuthor(TEST_AUTHOR_NAME);
+        Set<Book> books = authorRepositoryJpa.getAllBooks(TEST_AUTHOR_NAME);
+        System.out.println(books);
         for(Book book : books) {
             assertThat(book.getAuthor().getName()).isEqualTo(TEST_AUTHOR_NAME);
         }
