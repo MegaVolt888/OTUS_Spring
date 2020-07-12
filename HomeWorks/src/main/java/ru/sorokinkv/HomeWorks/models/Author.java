@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,5 +21,8 @@ public class Author {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Book> books;
 
 }

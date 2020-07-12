@@ -44,7 +44,7 @@ class GenreRepositoryJpaImplTest {
     @DisplayName("добавление жанра в БД")
     @Test
     void shoudInsertGenre() {
-        Genre expected = new Genre(1, EXPECTED_GENRE_NAME);
+        Genre expected = new Genre(1, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
         Genre actual = genreRepository.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
