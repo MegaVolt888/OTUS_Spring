@@ -17,7 +17,5 @@ public interface BookRepositoryJpa {
 
     Book findByTitle(String title);
 
-    List<Book> findByGenre(String name);
-
     List<Book> findAll();
 }

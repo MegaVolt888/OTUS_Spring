@@ -103,7 +103,7 @@ class BookRepositoryJpaImplTest {
     @DisplayName("получение книги из БД по названию жанра")
     @Test
     void shouldReturnBookByGenre() {
-        List<Book> books = bookRepositoryJpa.findByGenre(TEST_GENRE_NAME);
+        Set<Book> books = genreRepositoryJpa.getAllBooks(TEST_GENRE_NAME);
         for(Book book : books) {
             assertThat(book.getGenre().getName()).isEqualTo(TEST_GENRE_NAME);
         }

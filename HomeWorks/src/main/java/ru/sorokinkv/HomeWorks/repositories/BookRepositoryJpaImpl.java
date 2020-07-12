@@ -64,15 +64,6 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
 
     @Transactional
     @Override
-    public List<Book> findByGenre(String name) {
-        return em.createQuery("select b from Book b  " +
-                "where b.genre.name = :name", Book.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-    @Transactional
-    @Override
     public List<Book> findAll() {
         return em.createQuery("select b from Book b  " //+
                 , Book.class)
