@@ -8,7 +8,7 @@ import java.util.List;
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
 @Service
-public class AuthorServiceImpl extends AbstractService implements AuthorService {
+public class AuthorServiceImplImpl extends AbstractServiceImpl implements AuthorService {
 
     @Override
     public void save() {

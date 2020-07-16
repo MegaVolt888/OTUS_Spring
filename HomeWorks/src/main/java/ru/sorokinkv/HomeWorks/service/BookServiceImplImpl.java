@@ -9,7 +9,7 @@ import java.util.List;
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
 @Service
-public class BookServiceImpl extends AbstractService implements BookService {
+public class BookServiceImplImpl extends AbstractServiceImpl implements BookService {
 
     @Override
     public void save() {
