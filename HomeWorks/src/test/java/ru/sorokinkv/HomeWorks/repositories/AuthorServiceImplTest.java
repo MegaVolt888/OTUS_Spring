@@ -39,7 +39,7 @@ class AuthorServiceImplTest {
     @DisplayName("добавление автора в БД")
     @Test
     void shouldToSaveAuthor() {
-        Author expected = new Author(0, EXPECTED_AUTHOR_NAME);
+        Author expected = new Author(0, EXPECTED_AUTHOR_NAME,null);
         repository.save(expected);
         Author actual = repository.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -48,10 +48,12 @@ class AuthorServiceImplTest {
     @DisplayName("изменнение автора в БД")
     @Test
     void shouldUpdateAuthor() {
-        Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME);
+        Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME,null);
         repository.save(expected);
         Author actual = repository.findById(TEST_AUTHOR_ID);
-        assertThat(actual).isEqualToComparingFieldByField(expected);
+        assertThat(actual).isNotNull();
+        assertThat(actual.getId()).isEqualTo(expected.getId());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
     }
 
     @DisplayName("удаление автора из БД")
@@ -65,7 +67,6 @@ class AuthorServiceImplTest {
     @Test
     void shouldGetByIdAuthor() {
         Author author = repository.findById(TEST_AUTHOR_ID);
-        System.out.println(author.getId());
         assertThat(author.getId()).isEqualTo(TEST_AUTHOR_ID);
     }
 
@@ -73,7 +74,6 @@ class AuthorServiceImplTest {
     @Test
     void shouldGetByNameAuthor() {
         Author author = repository.findByName(EXPECTED_AUTHOR_NAME);
-        System.out.println(author);
         assertThat(author.getName()).isEqualTo(EXPECTED_AUTHOR_NAME);
     }
 

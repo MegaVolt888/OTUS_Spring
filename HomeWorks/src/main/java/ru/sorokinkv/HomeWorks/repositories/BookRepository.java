@@ -1,10 +1,7 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.sorokinkv.HomeWorks.models.Author;
 import ru.sorokinkv.HomeWorks.models.Book;
-import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.util.List;
 
@@ -14,10 +11,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Book findByTitle(String title);
 
-    List<Book> findByAuthor(Author author);
-
-    List<Book> findByGenre(Genre genre);
-
-    @EntityGraph(attributePaths = {"author", "genre"})
     List<Book> findAll();
+
+    List<Book> findByAuthorName(String name);
+
+    List<Book> findByGenreName(String name);
 }

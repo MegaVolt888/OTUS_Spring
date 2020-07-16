@@ -69,12 +69,12 @@ public class AbstractService {
     }
 
     private Genre insertAndReturnGenre(String name) {
-        genreRepository.save(new Genre(0, name));
+        genreRepository.save(new Genre(0, name, null));
         return genreRepository.findByName(name);
     }
 
     private Author insertAndReturnAuthor(String name) {
-        authorRepository.save(new Author(0, name));
+        authorRepository.save(new Author(0, name, null));
         return authorRepository.findByName(name);
     }
 }

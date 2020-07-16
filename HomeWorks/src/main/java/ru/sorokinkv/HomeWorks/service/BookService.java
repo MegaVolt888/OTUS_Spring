@@ -9,13 +9,13 @@ public interface BookService {
 
     Book findByTitle();
 
-    List<Book> findByAuthor();
-
-    List<Book> findByGenre();
-
     void update();
 
     void delete();
 
     List<Book> findAll();
+
+    List<Book> findByAuthor();
+
+    List<Book> findByGenre();
 }

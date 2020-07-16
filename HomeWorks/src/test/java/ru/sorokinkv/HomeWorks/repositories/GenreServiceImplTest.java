@@ -42,7 +42,7 @@ class GenreServiceImplTest {
     @DisplayName("добавление жанра в БД")
     @Test
     void shoudInsertGenre() {
-        Genre expected = new Genre(1, EXPECTED_GENRE_NAME);
+        Genre expected = new Genre(1, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
         Genre actual = genreRepository.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -51,7 +51,7 @@ class GenreServiceImplTest {
     @DisplayName("изменение жанра в БД")
     @Test
     void shouldUpdateGenre() {
-        Genre expected = new Genre(TEST_GENRE_ID, EXPECTED_GENRE_NAME);
+        Genre expected = new Genre(TEST_GENRE_ID, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
         Genre actual = genreRepository.findById(TEST_GENRE_ID);
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -62,8 +62,7 @@ class GenreServiceImplTest {
     @Test
     void shoudDeleteGenre() {
         genreRepository.deleteById(TEST_GENRE_ID);
-        long count = genreRepository.count();
-        assertThat(count).isEqualTo(DEFAULT_COUNT_AFTER_DELETE);
+        assertThat(genreRepository.findById(TEST_GENRE_ID) == null);
     }
 
     @DisplayName("получение жанра из БД по id")

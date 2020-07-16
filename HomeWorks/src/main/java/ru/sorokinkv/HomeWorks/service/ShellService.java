@@ -81,7 +81,7 @@ public class ShellService {
 
     @ShellMethod(value = "Search genres by name", key = {"sgbn", "genre name"})
     public Genre getGenreByName() {
-        return genreService.foundGenreByName();
+        return genreService.foundByName();
     }
 
     @ShellMethod(value = "Delete genre", key = {"dg", "delete genre", "del genre"})

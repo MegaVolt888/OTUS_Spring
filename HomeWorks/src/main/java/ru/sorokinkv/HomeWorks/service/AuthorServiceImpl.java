@@ -14,7 +14,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
     public void save() {
         showMessage(AUTHOR_SAVE_TITLE);
         String name = getMessage(ENTER_AUTHOR_NAME);
-        Author author = new Author(0, name);
+        Author author = new Author(0, name, null);
         authorRepository.save(author);
         showMessage(AUTHOR_SAVE);
     }
@@ -23,9 +23,9 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
     public void update() {
         showMessage(AUTHOR_UPDATE);
         Author author = findAuthorByName();
-        String changeFullName = getMessage(ENTER_NEW_AUTHOR_NAME);
-        authorRepository.save(new Author(author.getId(), changeFullName));
-        showMessage(AUTHOR_UPDATED + " " + changeFullName);
+        String changeName = getMessage(ENTER_NEW_AUTHOR_NAME);
+        authorRepository.save(new Author(author.getId(), changeName, null));
+        showMessage(AUTHOR_UPDATED + " " + changeName);
     }
 
 
@@ -46,4 +46,5 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
     public List<Author> findAll() {
         return authorRepository.findAll();
     }
+
 }

@@ -9,7 +9,12 @@ public interface MessageList {
     String BOOK_DELETED_SUCCESS = "Книга удалена";
     String BOOK_NOT_FOUND = "Книга не найдена";
 
+    String GENRE_SAVE_TITLE = "Добавление жанра";
     String ENTER_GENRE_NAME = "Название жанра:";
+    String GENRE_UPDATE = "Изменение жанра";
+    String ENTER_NEW_GENRE_NAME = "Введите новое название жанра";
+    String GENRE_SAVE = "Жанр добавлен";
+    String GENRE_UPDATED = "Название жанра изменено";
     String GENRE_DELETED_SUCCESS = "Жанр удален вместе с книгами";
     String GENRE_NOT_FOUND = "Жанр не найден";
 
