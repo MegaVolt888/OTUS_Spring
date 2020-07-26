@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,5 +22,5 @@ public class Genre {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Book> books;
+    private Set<Book> booksCollections;
 }
