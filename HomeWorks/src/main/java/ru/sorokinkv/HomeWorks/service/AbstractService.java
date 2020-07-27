@@ -9,7 +9,7 @@ import ru.sorokinkv.HomeWorks.repositories.GenreRepository;
 
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
-public class AbstractService {
+public abstract class AbstractService {
 
     @Autowired
     public BookRepository bookRepository;
@@ -33,8 +33,8 @@ public class AbstractService {
     }
 
     public Author findAuthorByName() {
-        String fullname = getMessage(ENTER_AUTHOR_NAME);
-        Author author = authorRepository.findByName(fullname);
+        String name = getMessage(ENTER_AUTHOR_NAME);
+        Author author = authorRepository.findByName(name);
         if (author == null) {
             throw new RuntimeException(AUTHOR_NOT_FOUND);
         }
@@ -69,12 +69,12 @@ public class AbstractService {
     }
 
     private Genre insertAndReturnGenre(String name) {
-        genreRepository.save(new Genre(0, name));
+        genreRepository.save(new Genre(name));
         return genreRepository.findByName(name);
     }
 
     private Author insertAndReturnAuthor(String name) {
-        authorRepository.save(new Author(0, name));
+        authorRepository.save(new Author(name));
         return authorRepository.findByName(name);
     }
 }

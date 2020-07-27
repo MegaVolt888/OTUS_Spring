@@ -1,17 +1,10 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    initialization-mode: always
-    schema: schema.sql
-    data: data.sql
-
-  jpa:
-    generate-ddl: false
-    hibernate:
-      ddl-auto: none
-
-    show-sql: true
-
+  data:
+    mongodb:
+      uri: mongodb://localhost
+      port: 27017
+      database: library
 logging:
   level:
-    ROOT: ERROR
+    root: ERROR
+changelogs.logsPackage: ru.sorokinkv.HomeWorks.changelogs

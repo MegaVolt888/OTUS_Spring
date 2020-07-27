@@ -15,7 +15,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
     public void save() {
         String title = getMessage(ENTER_BOOK_TITLE);
         Author author = getAuthorOrInsert();
-        bookRepository.save(new Book(0, title, author, getGenreOrInsert()));
+        bookRepository.save(new Book(title, author, getGenreOrInsert()));
         showMessage(BOOK_SAVE + " " + title);
     }
 
@@ -45,7 +45,8 @@ public class BookServiceImpl extends AbstractService implements BookService {
 
     @Override
     public List<Book> findByAuthor() {
-        List<Book> books = bookRepository.findByAuthor(findAuthorByName());
+        String authorName = getMessage(ENTER_AUTHOR_NAME);
+        List<Book> books = bookRepository.findByAuthorName(authorName);
         if ((long) books.size() == 0) {
             throw new RuntimeException(BOOK_NOT_FOUND);
         }
@@ -54,7 +55,8 @@ public class BookServiceImpl extends AbstractService implements BookService {
 
     @Override
     public List<Book> findByGenre() {
-        List<Book> books = bookRepository.findByGenre(findGenreByName());
+        String genreName = getMessage(ENTER_GENRE_NAME);
+        List<Book> books = bookRepository.findByGenreName(genreName);
         if ((long) books.size() == 0) {
             throw new RuntimeException(BOOK_NOT_FOUND);
         }

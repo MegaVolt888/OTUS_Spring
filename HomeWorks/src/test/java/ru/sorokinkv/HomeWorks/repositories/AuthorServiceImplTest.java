@@ -1,35 +1,29 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.sorokinkv.HomeWorks.models.Author;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-@DataJpaTest
 @DisplayName("Author repository test")
-class AuthorServiceImplTest {
-    static final long AUTHORS_COUNT_IN_DB = 2;
-    static final int EXEPECTED_AUTHORS = 2;
+class AuthorServiceImplTest extends AbstractRepositoryTest {
+    static final long AUTHORS_COUNT_IN_DB = 1;
     static final String EXPECTED_AUTHOR_NAME = "Sir Arthur Conan Doyle";
-    static final long TEST_AUTHOR_ID = 1;
     static final String TEST_AUTHOR_NAME = "Arthur Conan Doyle";
-    public static final int EXPECTED_COUNT = 1;
 
     @Autowired
     private AuthorRepository repository;
-    @Autowired
 
-    private TestEntityManager em;
 
     @DisplayName("ожидаемое количество авторов")
+    @DirtiesContext
     @Test
     void shouldReturnExpectedAuthorCount() {
         long count = repository.count();
@@ -37,39 +31,49 @@ class AuthorServiceImplTest {
     }
 
     @DisplayName("добавление автора в БД")
+    @DirtiesContext
     @Test
     void shouldToSaveAuthor() {
-        Author expected = new Author(0, EXPECTED_AUTHOR_NAME);
+        Author expected = new Author(TEST_AUTHOR_NAME);
         repository.save(expected);
         Author actual = repository.findById(expected.getId());
         assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
     @DisplayName("изменнение автора в БД")
+    @DirtiesContext
     @Test
     void shouldUpdateAuthor() {
-        Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME);
+        String idA = getAuthorId(EXPECTED_AUTHOR_NAME);
+        Author expected = new Author(idA, TEST_AUTHOR_NAME);
         repository.save(expected);
-        Author actual = repository.findById(TEST_AUTHOR_ID);
+        String idB = getAuthorId(TEST_AUTHOR_NAME);
+        Author actual = repository.findById(idB);
         assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
-    @DisplayName("удаление автора из БД")
-    @Test
-    void shoudDeleteAuthor() {
-        repository.deleteById(TEST_AUTHOR_ID);
-        assertThat(repository.findById(TEST_AUTHOR_ID) == null);
-    }
 
     @DisplayName("получение автора из БД по id")
+    @DirtiesContext
     @Test
     void shouldGetByIdAuthor() {
-        Author author = repository.findById(TEST_AUTHOR_ID);
-        System.out.println(author.getId());
-        assertThat(author.getId()).isEqualTo(TEST_AUTHOR_ID);
+        Author author = repository.findById(getAuthorId(EXPECTED_AUTHOR_NAME));
+        assertThat(author.getId()).isEqualTo(getAuthorId(EXPECTED_AUTHOR_NAME));
     }
 
+    @DisplayName("удаление автора из БД")
+    @DirtiesContext
+    @Test
+    void shoudDeleteAuthor() {
+        Author author = repository.findByName(EXPECTED_AUTHOR_NAME);
+        String id = author.getId();
+        repository.deleteById(id);
+        assertNull(repository.findByIdIsNull(id));
+    }
+
+
     @DisplayName("получение автора из БД по имени")
+    @DirtiesContext
     @Test
     void shouldGetByNameAuthor() {
         Author author = repository.findByName(EXPECTED_AUTHOR_NAME);
@@ -78,14 +82,17 @@ class AuthorServiceImplTest {
     }
 
     @DisplayName("получение всех авторов из БД")
+    @DirtiesContext
     @Test
     void shoudGetAllAuthors() {
-        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory()
-                .unwrap(SessionFactory.class);
-        sessionFactory.getStatistics().setStatisticsEnabled(true);
         List<Author> authors = repository.findAll();
-        assertThat(authors).isNotNull().hasSize(EXEPECTED_AUTHORS)
+        System.out.println(authors);
+        assertThat(authors).isNotNull().hasSize(1)
                 .allMatch(a -> a.getName() != null);
-        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_COUNT);
+    }
+
+    private String getAuthorId(String name) {
+        Author a = repository.findByName(name);
+        return a.getId();
     }
 }

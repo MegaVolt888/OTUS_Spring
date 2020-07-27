@@ -17,6 +17,7 @@ public class ShellService {
     private final AuthorService authorService;
     private final GenreService genreService;
 
+    // Book section
     @ShellMethod(value = "Create book", key = {"cb", "create book"})
     public void createBook() {
         bookService.save();
@@ -52,7 +53,7 @@ public class ShellService {
         return bookService.findAll();
     }
 
-
+    // Author section
     @ShellMethod(value = "Insert author", key = {"ca"})
     private void createAuthor() {
         authorService.save();
@@ -79,6 +80,7 @@ public class ShellService {
     }
 
 
+    // Genre section
     @ShellMethod(value = "Search genres by name", key = {"sgbn", "genre name"})
     public Genre getGenreByName() {
         return genreService.foundGenreByName();

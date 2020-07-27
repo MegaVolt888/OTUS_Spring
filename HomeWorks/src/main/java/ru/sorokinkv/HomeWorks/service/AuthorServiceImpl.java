@@ -14,7 +14,7 @@ public class AuthorServiceImpl extends AbstractService implements AuthorService 
     public void save() {
         showMessage(AUTHOR_SAVE_TITLE);
         String name = getMessage(ENTER_AUTHOR_NAME);
-        Author author = new Author(0, name);
+        Author author = new Author(name);
         authorRepository.save(author);
         showMessage(AUTHOR_SAVE);
     }

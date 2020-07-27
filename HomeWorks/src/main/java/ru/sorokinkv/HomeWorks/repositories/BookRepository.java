@@ -1,23 +1,36 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import ru.sorokinkv.HomeWorks.models.Author;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.sorokinkv.HomeWorks.models.Book;
-import ru.sorokinkv.HomeWorks.models.Genre;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends MongoRepository<Book, Long> {
 
-    Book findById(long id);
+    long count();
+
+    Book save(Book book);
+
+    void deleteById(String id);
+
+    Book findById(String id);
 
     Book findByTitle(String title);
 
-    List<Book> findByAuthor(Author author);
+    List<Book> findByAuthorName(String name);
 
-    List<Book> findByGenre(Genre genre);
+    List<Book> findByAuthorId(String id);
 
-    @EntityGraph(attributePaths = {"author", "genre"})
+    List<Book> findByGenreName(String name);
+
+    List<Book> findByGenreId(String id);
+
     List<Book> findAll();
+
+    boolean existsById(String id);
+
+    void removeBooksByAuthorId(String id);
+
+    void removeBooksByGenreId(String id);
+
 }
