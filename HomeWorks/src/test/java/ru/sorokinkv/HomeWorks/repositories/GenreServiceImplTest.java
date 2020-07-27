@@ -16,9 +16,6 @@ class GenreServiceImplTest extends AbstractRepositoryTest {
     static final long TEST_GENRE_ID = 1L;
     static final long DEFAULT_COUNT_AFTER_DELETE = 1L;
     static final String TEST_GENRE_NAME = "detective";
-    static final int EXEPECTED_NUMBER_OF_GENRES = 2;
-    static final int EXPECTED_QERIES_COUNT = 1;
-
 
     @Autowired
     GenreRepository genreRepository;
