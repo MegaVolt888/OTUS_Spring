@@ -9,13 +9,13 @@ import java.util.List;
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
 @Service
-public class BookServiceImplImpl extends AbstractServiceImpl implements BookService {
+public class BookServiceImpl extends AbstractService implements BookService {
 
     @Override
     public void save() {
         String title = getMessage(ENTER_BOOK_TITLE);
         Author author = getAuthorOrInsert();
-        bookRepository.save(new Book(0, title, author, getGenreOrInsert()));
+        bookRepository.save(new Book(title, author, getGenreOrInsert()));
         showMessage(BOOK_SAVE + " " + title);
     }
 
@@ -45,8 +45,8 @@ public class BookServiceImplImpl extends AbstractServiceImpl implements BookServ
 
     @Override
     public List<Book> findByAuthor() {
-        String fullname = getMessage(ENTER_AUTHOR_NAME);
-        List<Book> books = bookRepository.findByAuthorName(fullname);
+        String authorName = getMessage(ENTER_AUTHOR_NAME);
+        List<Book> books = bookRepository.findByAuthorName(authorName);
         if ((long) books.size() == 0) {
             throw new RuntimeException(BOOK_NOT_FOUND);
         }
@@ -55,8 +55,8 @@ public class BookServiceImplImpl extends AbstractServiceImpl implements BookServ
 
     @Override
     public List<Book> findByGenre() {
-        String name = getMessage(ENTER_GENRE_NAME);
-        List<Book> books = bookRepository.findByGenreName(name);
+        String genreName = getMessage(ENTER_GENRE_NAME);
+        List<Book> books = bookRepository.findByGenreName(genreName);
         if ((long) books.size() == 0) {
             throw new RuntimeException(BOOK_NOT_FOUND);
         }

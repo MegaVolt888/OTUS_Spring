@@ -25,6 +25,7 @@ public class ShellService {
     private final GenreRepositoryJpa genreRepository;
     private final IOService messageService;
 
+    // Book section
     @ShellMethod(value = "Create book", key = {"cb", "create book"})
     public void createBook() {
         String title = getMessage(ENTER_BOOK_TITLE);
@@ -72,7 +73,7 @@ public class ShellService {
         return bookRepository.findAll();
     }
 
-
+    // Author section
     @ShellMethod(value = "Insert author", key = {"ca"})
     private void createAuthor() {
         String name = getMessage(ENTER_AUTHOR_NAME);
@@ -112,6 +113,7 @@ public class ShellService {
     }
 
 
+    // Genre section
     @ShellMethod(value = "Search genres by name", key = {"sgbn", "genre name"})
     public Genre getGenreByName() {
         messageService.showMessage(ENTER_GENRE_NAME);

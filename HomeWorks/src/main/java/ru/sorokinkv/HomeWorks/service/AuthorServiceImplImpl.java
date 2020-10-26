@@ -8,13 +8,13 @@ import java.util.List;
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
 @Service
-public class AuthorServiceImplImpl extends AbstractServiceImpl implements AuthorService {
+public class AuthorServiceImpl extends AbstractService implements AuthorService {
 
     @Override
     public void save() {
         showMessage(AUTHOR_SAVE_TITLE);
         String name = getMessage(ENTER_AUTHOR_NAME);
-        Author author = new Author(0, name, null);
+        Author author = new Author(name);
         authorRepository.save(author);
         showMessage(AUTHOR_SAVE);
     }
@@ -23,9 +23,9 @@ public class AuthorServiceImplImpl extends AbstractServiceImpl implements Author
     public void update() {
         showMessage(AUTHOR_UPDATE);
         Author author = findAuthorByName();
-        String changeName = getMessage(ENTER_NEW_AUTHOR_NAME);
-        authorRepository.save(new Author(author.getId(), changeName, null));
-        showMessage(AUTHOR_UPDATED + " " + changeName);
+        String changeFullName = getMessage(ENTER_NEW_AUTHOR_NAME);
+        authorRepository.save(new Author(author.getId(), changeFullName));
+        showMessage(AUTHOR_UPDATED + " " + changeFullName);
     }
 
 
@@ -46,5 +46,4 @@ public class AuthorServiceImplImpl extends AbstractServiceImpl implements Author
     public List<Author> findAll() {
         return authorRepository.findAll();
     }
-
 }

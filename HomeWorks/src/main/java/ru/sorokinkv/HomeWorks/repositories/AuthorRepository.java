@@ -1,12 +1,22 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.sorokinkv.HomeWorks.models.Author;
 
-public interface AuthorRepository extends JpaRepository<Author, Long> {
+import java.util.List;
 
-    Author findById(long id);
+public interface AuthorRepository extends MongoRepository<Author, Long> {
+    long count();
+
+    Author save(Author author);
+
+    void deleteById(String id);
+
+    Author findById(String id);
 
     Author findByName(String name);
 
+    List<Author> findAll();
+
+    Author findByIdIsNull(String id);
 }
