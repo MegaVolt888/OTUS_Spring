@@ -1,5 +1,6 @@
-package ru.sorokinkv.HomeWorks.models;
+package ru.sorokinkv.HomeWorks.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "genres")
 public class Genre {
+
     @Id
     @SequenceGenerator(name = "genre_id", sequenceName = "gentre_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genre_id")
@@ -21,6 +23,9 @@ public class Genre {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Book> books;
+    @JoinTable(name = "genres_books", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> book;
+
 }

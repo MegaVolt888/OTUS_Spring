@@ -1,19 +1,15 @@
 package ru.sorokinkv.HomeWorks.service;
 
-import ru.sorokinkv.HomeWorks.models.Author;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import ru.sorokinkv.HomeWorks.models.entity.Author;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
 public interface AbstractService {
 
-    String getMessage(String message);
+    Author findAuthorByName(String name);
 
-    void showMessage(String message);
+    Genre findGenreByName(String name);
 
-    Author findAuthorByName();
+    Genre getGenreOrInsert(String name);
 
-    Genre getGenreOrInsert();
-
-    Author getAuthorOrInsert();
-
-    Genre findGenreByName();
+    Author getAuthorOrInsert(String name);
 }

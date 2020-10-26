@@ -1,5 +1,6 @@
-package ru.sorokinkv.HomeWorks.models;
+package ru.sorokinkv.HomeWorks.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,13 +17,14 @@ public class Author {
 
     @Id
     @SequenceGenerator(name = "author_id", sequenceName = "author_id", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator = "author_id")
     private long id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Book> books;
-
+    @JoinTable(name = "authors_books", joinColumns = @JoinColumn(name = "author_id"),inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> book;
 }

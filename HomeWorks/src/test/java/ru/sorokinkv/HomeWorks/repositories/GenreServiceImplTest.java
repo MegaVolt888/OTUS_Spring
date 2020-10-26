@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 @DisplayName("Genre tests")
@@ -44,7 +42,7 @@ class GenreServiceImplTest {
     void shoudInsertGenre() {
         Genre expected = new Genre(1, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
-        Genre actual = genreRepository.findById(expected.getId());
+        Genre actual = genreRepository.findById(expected.getId()).get();
         assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
@@ -53,7 +51,7 @@ class GenreServiceImplTest {
     void shouldUpdateGenre() {
         Genre expected = new Genre(TEST_GENRE_ID, EXPECTED_GENRE_NAME,null);
         genreRepository.save(expected);
-        Genre actual = genreRepository.findById(TEST_GENRE_ID);
+        Genre actual = genreRepository.findById(TEST_GENRE_ID).get();
         assertThat(actual).isEqualToComparingFieldByField(expected);
 
     }
@@ -68,7 +66,7 @@ class GenreServiceImplTest {
     @DisplayName("получение жанра из БД по id")
     @Test
     void shouldGetByIdGenre() {
-        Genre genre = genreRepository.findById(TEST_GENRE_ID);
+        Genre genre = genreRepository.findById(TEST_GENRE_ID).get();
         assertThat(genre.getId()).isEqualTo(TEST_GENRE_ID);
     }
 

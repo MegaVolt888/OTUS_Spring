@@ -1,47 +1,83 @@
 package ru.sorokinkv.HomeWorks.service;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import org.springframework.transaction.annotation.Transactional;
+import ru.sorokinkv.HomeWorks.models.dto.GenreDTO;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
 import java.util.List;
 
-import static ru.sorokinkv.HomeWorks.service.MessageList.*;
-
+@RequiredArgsConstructor
 @Service
 public class GenreServiceImplImpl extends AbstractServiceImpl implements GenreService {
 
-
     @Override
-    public void save() {
-        showMessage(GENRE_SAVE_TITLE);
-        String name = getMessage(ENTER_GENRE_NAME);
-        Genre genre = new Genre(0, name, null);
-        genreRepository.save(genre);
-        showMessage(GENRE_SAVE);
+    public Genre createNewGenre(@NonNull GenreDTO genreDTO){
+        Genre genre = new Genre();
+        genre.setId(genreDTO.getId());
+        genre.setName(genreDTO.getName());
+        return genre;
     }
 
     @Override
-    public void update() {
-        showMessage(GENRE_UPDATE);
-        Genre genre = findGenreByName();
-        String changeName = getMessage(ENTER_NEW_GENRE_NAME);
-        genreRepository.save(new Genre(genre.getId(), changeName, null));
-        showMessage(GENRE_UPDATED + " " + changeName);
-    }
-
-
-    @Override
-    public Genre foundByName() {
-        return findGenreByName();
+    public Genre save(String name) {
+        return genreRepository.save(new Genre(0, name, null));
     }
 
     @Override
-    public void delete() {
-        Genre genre = findGenreByName();
-        genreRepository.delete(genre);
-        showMessage(GENRE_DELETED_SUCCESS);
+    public Genre update(Genre genreDiff) {
+        if(existsById(genreDiff.getId())) {
+            Genre genre = findById(genreDiff.getId());
+           return genreRepository.save(new Genre(genre.getId(), genreDiff.getName(), genre.getBook()));
+        } else return null;
     }
 
+
+    @Transactional
+    @Override
+    public Genre foundByName(String name) {
+        return findGenreByName(name);
+    }
+
+    @Override
+    public boolean delete(String name) {
+        if(existsByName(name)) {
+            Genre genre = findGenreByName(name);
+            genreRepository.delete(genre);
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public boolean deleteById(long id) {
+        if(existsById(id)) {
+            Genre genre = findById(id);
+            genreRepository.delete(genre);
+            return true;
+        } else return false;
+    }
+
+    @Transactional
+    @Override
+    public Genre findById(Long id) {
+        return genreRepository.findById(id).orElse(null);
+    }
+    @Override
+    public boolean existsByName(String name) {
+        return genreRepository.existsByName(name);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        if (id != null) {
+            return genreRepository.existsById(id);
+        }
+        return false;
+    }
+
+    @Transactional
     @Override
     public List<Genre> findAll() {
         return genreRepository.findAll();

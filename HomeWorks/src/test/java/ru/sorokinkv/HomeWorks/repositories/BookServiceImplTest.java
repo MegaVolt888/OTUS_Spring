@@ -7,16 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import ru.sorokinkv.HomeWorks.models.Author;
-import ru.sorokinkv.HomeWorks.models.Book;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import ru.sorokinkv.HomeWorks.models.entity.Author;
+import ru.sorokinkv.HomeWorks.models.entity.Book;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.sorokinkv.HomeWorks.service.MessageList.ENTER_AUTHOR_NAME;
-import static ru.sorokinkv.HomeWorks.service.MessageList.ENTER_GENRE_NAME;
+
 
 @DataJpaTest
 @DisplayName("Book test")
@@ -29,10 +27,9 @@ class BookServiceImplTest {
     static final String EXPECTED_TEST_BOOK_TITLE = "Favorite Sherlock Holmes Detective Stories";
     static final String TEST_GENRE_NAME = "detective";
     static final long TEST_BOOK_ID = 3L;
-    long TEST_AUTHOR_ID = 1L;
     static final int EXPECTED_NUMBER_OF_BOOKS = 4;
     static final int EXPECTED_QERIES_COUNT = 1;
-
+    long TEST_AUTHOR_ID = 1L;
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -115,10 +112,11 @@ class BookServiceImplTest {
     }
 
     private Book getBook(long id) {
-        Author author = authorRepository.findById(TEST_AUTHOR_ID);
-        Genre genre = genreRepository.findById(TEST_GENRE_ID);
+        Author author = authorRepository.findById(TEST_AUTHOR_ID).get();
+        Genre genre = genreRepository.findById(TEST_GENRE_ID).get();
         return new Book(id, TEST_BOOK_TITLE, author, genre);
     }
+
     public Genre getGenre(String name) {
         Genre genre = genreRepository.findByName(name);
         return genre;

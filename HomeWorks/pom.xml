@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.sorokinkv</groupId>
-    <artifactId>HomeWork06_L09</artifactId>
+    <artifactId>HomeWork10_L17</artifactId>
     <version>1.0</version>
-    <name>HomeWork06_L09</name>
+    <name>HomeWork10_L17</name>
 
     <properties>
         <java.version>11</java.version>
@@ -23,14 +23,27 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.shell</groupId>-->
-<!--            <artifactId>spring-shell-starter</artifactId>-->
-<!--            <version>2.0.1.RELEASE</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.shell</groupId>-->
+        <!--            <artifactId>spring-shell-starter</artifactId>-->
+        <!--            <version>2.0.1.RELEASE</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--            <scope>runtime</scope>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -52,10 +65,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.shell</groupId>-->
+        <!--            <artifactId>spring-shell-starter</artifactId>-->
+        <!--            <version>2.0.1.RELEASE</version>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell-starter</artifactId>
-            <version>2.0.1.RELEASE</version>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
     </dependencies>
 

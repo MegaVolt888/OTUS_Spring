@@ -1,13 +1,11 @@
 package ru.sorokinkv.HomeWorks.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.sorokinkv.HomeWorks.models.Author;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import ru.sorokinkv.HomeWorks.models.entity.Author;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 import ru.sorokinkv.HomeWorks.repositories.AuthorRepository;
 import ru.sorokinkv.HomeWorks.repositories.BookRepository;
 import ru.sorokinkv.HomeWorks.repositories.GenreRepository;
-
-import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
 public abstract class AbstractServiceImpl implements AbstractService{
 
@@ -20,33 +18,18 @@ public abstract class AbstractServiceImpl implements AbstractService{
     @Autowired
     public GenreRepository genreRepository;
 
-    @Autowired
-    public IOService ms;
 
     @Override
-    public String getMessage(String message) {
-        ms.showMessage(message);
-        return ms.getMessage().toLowerCase();
-    }
-
-    @Override
-    public void showMessage(String message) {
-        ms.showMessage(message);
-    }
-
-    @Override
-    public Author findAuthorByName() {
-        String fullname = getMessage(ENTER_AUTHOR_NAME);
-        Author author = authorRepository.findByName(fullname);
+    public Author findAuthorByName(String name) {
+        Author author = authorRepository.findByName(name);
         if (author == null) {
-            throw new RuntimeException(AUTHOR_NOT_FOUND);
+            throw new RuntimeException("AUTHOR_NOT_FOUND");
         }
         return author;
     }
 
     @Override
-    public Genre getGenreOrInsert() {
-        String name = getMessage(ENTER_GENRE_NAME);
+    public Genre getGenreOrInsert(String name) {
         Genre genre = genreRepository.findByName(name);
         if (genre == null) {
             return insertAndReturnGenre(name);
@@ -55,8 +38,7 @@ public abstract class AbstractServiceImpl implements AbstractService{
     }
 
     @Override
-    public Author getAuthorOrInsert() {
-        String name = getMessage(ENTER_AUTHOR_NAME);
+    public Author getAuthorOrInsert(String name) {
         Author author = authorRepository.findByName(name);
         if (author == null) {
             return insertAndReturnAuthor(name);
@@ -64,14 +46,21 @@ public abstract class AbstractServiceImpl implements AbstractService{
         return author;
     }
 
+
+    public Author getAuthorById(Long id){
+        return authorRepository.findById(id).get();
+    }
+
     @Override
-    public Genre findGenreByName() {
-        String name = getMessage(ENTER_GENRE_NAME);
+    public Genre findGenreByName(String name) {
         Genre genre = genreRepository.findByName(name);
         if (genre == null) {
-            throw new RuntimeException(GENRE_NOT_FOUND);
+            throw new RuntimeException("GENRE_NOT_FOUND");
         }
         return genre;
+    }
+    public Genre getGenreById(Long id){
+        return genreRepository.findById(id).get();
     }
 
     private Genre insertAndReturnGenre(String name) {
@@ -80,7 +69,7 @@ public abstract class AbstractServiceImpl implements AbstractService{
     }
 
     private Author insertAndReturnAuthor(String name) {
-        authorRepository.save(new Author(0, name, null));
+        authorRepository.save(new Author(0, name,null));
         return authorRepository.findByName(name);
     }
 }

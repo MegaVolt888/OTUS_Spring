@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import ru.sorokinkv.HomeWorks.models.Author;
+import ru.sorokinkv.HomeWorks.models.entity.Author;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ class AuthorServiceImplTest {
 
     @Autowired
     private AuthorRepository repository;
-    @Autowired
 
+    @Autowired
     private TestEntityManager em;
 
     @DisplayName("ожидаемое количество авторов")
@@ -41,7 +41,7 @@ class AuthorServiceImplTest {
     void shouldToSaveAuthor() {
         Author expected = new Author(0, EXPECTED_AUTHOR_NAME,null);
         repository.save(expected);
-        Author actual = repository.findById(expected.getId());
+        Author actual = repository.findById(expected.getId()).get();
         assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
@@ -50,7 +50,7 @@ class AuthorServiceImplTest {
     void shouldUpdateAuthor() {
         Author expected = new Author(TEST_AUTHOR_ID, TEST_AUTHOR_NAME,null);
         repository.save(expected);
-        Author actual = repository.findById(TEST_AUTHOR_ID);
+        Author actual = repository.findById(TEST_AUTHOR_ID).get();
         assertThat(actual).isNotNull();
         assertThat(actual.getId()).isEqualTo(expected.getId());
         assertThat(actual.getName()).isEqualTo(expected.getName());
@@ -66,7 +66,7 @@ class AuthorServiceImplTest {
     @DisplayName("получение автора из БД по id")
     @Test
     void shouldGetByIdAuthor() {
-        Author author = repository.findById(TEST_AUTHOR_ID);
+        Author author = repository.findById(TEST_AUTHOR_ID).get();
         assertThat(author.getId()).isEqualTo(TEST_AUTHOR_ID);
     }
 
