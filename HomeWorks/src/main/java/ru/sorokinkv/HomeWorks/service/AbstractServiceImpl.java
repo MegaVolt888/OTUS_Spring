@@ -9,7 +9,7 @@ import ru.sorokinkv.HomeWorks.repositories.GenreRepository;
 
 import static ru.sorokinkv.HomeWorks.service.MessageList.*;
 
-public class AbstractService {
+public abstract class AbstractServiceImpl implements AbstractService{
 
     @Autowired
     public BookRepository bookRepository;
@@ -23,15 +23,18 @@ public class AbstractService {
     @Autowired
     public IOService ms;
 
+    @Override
     public String getMessage(String message) {
         ms.showMessage(message);
         return ms.getMessage().toLowerCase();
     }
 
+    @Override
     public void showMessage(String message) {
         ms.showMessage(message);
     }
 
+    @Override
     public Author findAuthorByName() {
         String fullname = getMessage(ENTER_AUTHOR_NAME);
         Author author = authorRepository.findByName(fullname);
@@ -41,6 +44,7 @@ public class AbstractService {
         return author;
     }
 
+    @Override
     public Genre getGenreOrInsert() {
         String name = getMessage(ENTER_GENRE_NAME);
         Genre genre = genreRepository.findByName(name);
@@ -50,6 +54,7 @@ public class AbstractService {
         return genre;
     }
 
+    @Override
     public Author getAuthorOrInsert() {
         String name = getMessage(ENTER_AUTHOR_NAME);
         Author author = authorRepository.findByName(name);
@@ -59,6 +64,7 @@ public class AbstractService {
         return author;
     }
 
+    @Override
     public Genre findGenreByName() {
         String name = getMessage(ENTER_GENRE_NAME);
         Genre genre = genreRepository.findByName(name);
@@ -69,12 +75,12 @@ public class AbstractService {
     }
 
     private Genre insertAndReturnGenre(String name) {
-        genreRepository.save(new Genre(0, name));
+        genreRepository.save(new Genre(0, name, null));
         return genreRepository.findByName(name);
     }
 
     private Author insertAndReturnAuthor(String name) {
-        authorRepository.save(new Author(0, name));
+        authorRepository.save(new Author(0, name, null));
         return authorRepository.findByName(name);
     }
 }
