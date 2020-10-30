@@ -1,28 +1,20 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/library}
+    username: ${DATASOURCE_USERNAME:library}
+    password: ${DATASOURCE_PASSWORD:123}
+    driver-class-name: org.postgresql.Driver
     initialization-mode: always
-    username: sa
-    password:
-#    schema: schema.sql
-#    data: data.sql
 
-  jpa:
+
+jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: none
-
+      ddl-auto: update
 
     properties:
       hibernate:
         format_sql: true
+        default_schema: library
 
     show-sql: true
-
-  h2:
-    console:
-      enabled: true
-
-logging:
-  level:
-    ROOT: ERROR

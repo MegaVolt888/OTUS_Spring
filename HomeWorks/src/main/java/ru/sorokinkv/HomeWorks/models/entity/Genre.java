@@ -16,7 +16,7 @@ import java.util.List;
 public class Genre {
 
     @Id
-    @SequenceGenerator(name = "genre_id", sequenceName = "gentre_id", allocationSize = 1)
+    @SequenceGenerator(name = "genre_id", sequenceName = "genre_id", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genre_id")
     private long id;
 
