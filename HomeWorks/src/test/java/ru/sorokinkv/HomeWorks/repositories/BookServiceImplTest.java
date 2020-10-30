@@ -1,32 +1,44 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
+import lombok.val;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import ru.sorokinkv.HomeWorks.models.Author;
-import ru.sorokinkv.HomeWorks.models.Book;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import ru.sorokinkv.HomeWorks.models.entity.Author;
+import ru.sorokinkv.HomeWorks.models.entity.Book;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+@DataJpaTest
 @DisplayName("Book test")
-class BookServiceImplTest extends AbstractRepositoryTest {
-    static final long DEFAULT_BOOKS_COUNT = 1L;
+class BookServiceImplTest {
+    static final long DEFAULT_BOOKS_COUNT = 4L;
+    static final long TEST_GENRE_ID = 1L;
     static final String TEST_BOOK_TITLE = "Test book";
+    static final long UPDATE_TEST_BOOK = 2L;
     static final String TEST_AUTHOR_NAME = "Sir Arthur Conan Doyle";
     static final String EXPECTED_TEST_BOOK_TITLE = "Favorite Sherlock Holmes Detective Stories";
     static final String TEST_GENRE_NAME = "detective";
     static final long TEST_BOOK_ID = 3L;
-
+    static final int EXPECTED_NUMBER_OF_BOOKS = 4;
+    static final int EXPECTED_QERIES_COUNT = 1;
+    long TEST_AUTHOR_ID = 1L;
     @Autowired
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
     @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    private TestEntityManager em;
 
     @DisplayName("ожидаемое количество книг")
     @Test
@@ -36,20 +48,18 @@ class BookServiceImplTest extends AbstractRepositoryTest {
     }
 
     @DisplayName("добавление книги в БД")
-    @DirtiesContext
     @Test
     void shouldInsertBook() {
-        Book expected = getTestBook();
+        Book expected = getBook(1);
         bookRepository.save(expected);
         Book actual = bookRepository.findByTitle(TEST_BOOK_TITLE);
         assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
     @DisplayName("изменение книги в БД")
-    @DirtiesContext
     @Test
     void shouldUpdateBook() {
-        Book expected = getTestBook();
+        Book expected = getBook(UPDATE_TEST_BOOK);
         bookRepository.save(expected);
         Book actual = bookRepository.findByTitle(TEST_BOOK_TITLE);
         assertThat(actual).isEqualToComparingFieldByField(expected);
@@ -90,16 +100,31 @@ class BookServiceImplTest extends AbstractRepositoryTest {
     @DisplayName("получение всех книг из БД")
     @Test
     void shoudGetAllBooks() {
-        List<Book> books = bookRepository.findAll();
-        assertThat(books).isNotNull().hasSize(1)
-                .allMatch(b -> b.getTitle() != null);
+        SessionFactory sessionFactory = em.getEntityManager().getEntityManagerFactory()
+                .unwrap(SessionFactory.class);
+        sessionFactory.getStatistics().setStatisticsEnabled(true);
+        val books = bookRepository.findAll();
+        assertThat(books).isNotNull().hasSize(EXPECTED_NUMBER_OF_BOOKS)
+                .allMatch(b -> b.getTitle() != null)
+                .allMatch(b -> b.getAuthor() != null)
+                .allMatch(b -> b.getGenre() != null);
+        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QERIES_COUNT);
     }
 
-    private Book getTestBook() {
-        Author author = authorRepository.findByName(TEST_AUTHOR_NAME);
-        Genre genre = genreRepository.findByName(TEST_GENRE_NAME);
-        return new Book(TEST_BOOK_TITLE, author, genre);
+    private Book getBook(long id) {
+        Author author = authorRepository.findById(TEST_AUTHOR_ID).get();
+        Genre genre = genreRepository.findById(TEST_GENRE_ID).get();
+        return new Book(id, TEST_BOOK_TITLE, author, genre);
     }
 
+    public Genre getGenre(String name) {
+        Genre genre = genreRepository.findByName(name);
+        return genre;
+    }
+
+    public Author getAuthor(String name) {
+        Author author = authorRepository.findByName(name);
+        return author;
+    }
 
 }

@@ -10,6 +10,16 @@ import ru.sorokinkv.HomeWorks.config.ApplicationConfig;
 @EnableConfigurationProperties(ApplicationConfig.class)
 public class HomeWorksApplication {
 
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("*");
+//            }
+//        };
+//    }
+
     public static void main(String[] args) {
         SpringApplication.run(HomeWorksApplication.class, args);
     }

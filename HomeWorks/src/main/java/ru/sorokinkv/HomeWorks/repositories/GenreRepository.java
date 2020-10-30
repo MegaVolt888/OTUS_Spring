@@ -1,22 +1,11 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import ru.sorokinkv.HomeWorks.models.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.sorokinkv.HomeWorks.models.entity.Genre;
 
-import java.util.List;
-
-public interface GenreRepository extends MongoRepository<Genre, Long> {
-    long count();
-
-    Genre save(Genre genre);
-
-    void deleteById(String id);
-
-    Genre findById(String id);
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     Genre findByName(String name);
 
-    List<Genre> findAll();
-
-    Genre findByIdIsNull(String id);
+    boolean existsByName(String name);
 }

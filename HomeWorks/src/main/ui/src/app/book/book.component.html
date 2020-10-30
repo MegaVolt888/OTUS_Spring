@@ -1,0 +1,149 @@
+<div class="container">
+  <div class="row col-sm">
+    <!-- Button trigger modal -->
+    <div class="col-sm text-center">
+      <button type="button" class="btn btn-link " data-toggle="modal" data-target="#addBookModal"
+              (click)="getAuthorsAndGenres()">
+        Add new book
+      </button>
+    </div>
+
+  </div>
+  <div *ngFor="let book of books|async">
+    <div class="col-sm fa-2x border text-center">{{book.title}}
+      <button type="button" class="btn btn-outline-secondary ml-3" data-toggle="modal" data-target="#updateBookModal"
+              (click)="selectBook(book)">Edit
+      </button>
+      <button type="button" class="btn btn-outline-warning ml-2" data-toggle="modal" data-target="#deleteBookModal"
+              (click)="selectBook(book)">Delete
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-sm text-center font-italic font-weight-bold text-light bg-dark ">Author</div>
+      <div class="col-sm text-center font-italic font-weight-bold text-light bg-dark">Genre</div>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-sm text-center border">{{book.author.name}}</div>
+      <div class="col-sm text-center border">{{book.genre.name}}</div>
+    </div>
+
+  </div>
+
+  <!-- Modal addition  -->
+  <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addModalLabel">Book addition...</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Book name" aria-label="Book name"
+                   aria-describedby="basic-addon1" required="required" [(ngModel)]="additionBook.title">
+          </div>
+          <div>
+            <label>Author: </label>
+            <select id="selectAuthor" name="selectAuthor" [(ngModel)]="selectedAuthor">
+              <option disabled [ngValue]="null">Select author...</option>
+              <option *ngFor="let author of authors|async" [ngValue]="author">{{author.name}}</option>
+            </select>
+          </div>
+          <div>
+            <label>Genre: </label>
+            <select id="selectGenre" name="selectGenre" [(ngModel)]="selectedGenre">
+              <option disabled [ngValue]="null">Select genre...</option>
+              <option *ngFor="let genre of genres|async" [ngValue]="genre">{{genre.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveBook()" data-dismiss="modal">Save book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Update  -->
+  <div class="modal fade" id="updateBookModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Edit book ...</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Book name" aria-label="Book name"
+                   aria-describedby="basic-addon1" [(ngModel)]="selectedBook.title">
+          </div>
+          <div>
+            <label>Author: </label>
+            <select id="selectAuthorUpdate" name="selectAuthorUpdate" [ngModel]="selectedBook.author" (ngModelChange)="selectAuthor($event)">
+              <option *ngFor="let author of authors|async" [ngValue]="author">{{author.name}}</option>
+            </select>
+          </div>
+          <div>
+            <label>Genre: </label>
+            <select id="selectGenreUpdate" name="selectGenreUpdate" [(ngModel)]="selectedBook.genre">
+              <option *ngFor="let genre of genres|async" [ngValue]="genre">{{genre.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateBook()" data-dismiss="modal">Update book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Delete  -->
+  <div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete book ...</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body row">
+
+          <div class="col-lg-2">
+            <label class="font-italic">Title:</label>
+          </div>
+          <div class="input-group mb-3 col-lg-9">
+            <label class="col-form-label" style="font-size:25px;">{{selectedBook.title}}</label>
+          </div>
+          <div class="col-lg-2">
+            <label class="font-italic">Author:</label>
+          </div>
+          <div class="input-group mb-3 col-lg-9">
+            <label class="col-form-label" style="font-size:25px;">{{selectedBook.author}}</label>
+          </div>
+          <div class="col-lg-2">
+            <label class="font-italic">Genre:</label>
+          </div>
+          <div class="input-group mb-3 col-lg-9">
+            <label class="col-form-label" style="font-size:25px;">{{selectedBook.genre}}</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteBook()" data-dismiss="modal">Delete book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

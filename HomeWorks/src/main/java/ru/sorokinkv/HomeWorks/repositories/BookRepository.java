@@ -1,36 +1,21 @@
 package ru.sorokinkv.HomeWorks.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import ru.sorokinkv.HomeWorks.models.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.sorokinkv.HomeWorks.models.entity.Book;
 
 import java.util.List;
 
-public interface BookRepository extends MongoRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    long count();
-
-    Book save(Book book);
-
-    void deleteById(String id);
-
-    Book findById(String id);
+    Book findById(long id);
 
     Book findByTitle(String title);
 
-    List<Book> findByAuthorName(String name);
-
-    List<Book> findByAuthorId(String id);
-
-    List<Book> findByGenreName(String name);
-
-    List<Book> findByGenreId(String id);
-
     List<Book> findAll();
 
-    boolean existsById(String id);
+    boolean existsByTitle(String title);
 
-    void removeBooksByAuthorId(String id);
+    List<Book> findByAuthorName(String name);
 
-    void removeBooksByGenreId(String id);
-
+    List<Book> findByGenreName(String name);
 }
