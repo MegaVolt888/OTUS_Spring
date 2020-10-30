@@ -6,18 +6,23 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "genre")
-public class Genre {
+@Document(collection = "book")
+public class Book {
     @Id
     private String id;
 
-    private String name;
+    private String title;
 
-    public Genre(String name) {
-        this.name = name;
+    private Author author;
+
+    private Genre genre;
+
+    public Book(String title, Author author, Genre genre) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
     }
 }

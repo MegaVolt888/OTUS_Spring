@@ -1,91 +1,49 @@
 package ru.sorokinkv.HomeWorks.service;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.sorokinkv.HomeWorks.models.dto.AuthorDTO;
-import ru.sorokinkv.HomeWorks.models.entity.Author;
+import ru.sorokinkv.HomeWorks.models.Author;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+import static ru.sorokinkv.HomeWorks.service.MessageList.*;
+
 @Service
-public class AuthorServiceImplImpl extends AbstractServiceImpl implements AuthorService {
+public class AuthorServiceImpl extends AbstractService implements AuthorService {
 
     @Override
-    public Author createNewAuthor(@NonNull AuthorDTO authorDTO){
-        Author author = new Author();
-
-        author.setId(authorDTO.getId());
-        author.setName(authorDTO.getName());
-        return author;
+    public void save() {
+        showMessage(AUTHOR_SAVE_TITLE);
+        String name = getMessage(ENTER_AUTHOR_NAME);
+        Author author = new Author(name);
+        authorRepository.save(author);
+        showMessage(AUTHOR_SAVE);
     }
 
     @Override
-    public Author save(String name) {
-        return authorRepository.save(new Author(0 ,name,null));
-    }
-
-    @Override
-    public Author update(Author authorDiff) {
-        if(existsById(authorDiff.getId())) {
-            Author author = findById(authorDiff.getId());
-            author.setName(authorDiff.getName());
-            return authorRepository.save(author);
-        } else return null;
+    public void update() {
+        showMessage(AUTHOR_UPDATE);
+        Author author = findAuthorByName();
+        String changeFullName = getMessage(ENTER_NEW_AUTHOR_NAME);
+        authorRepository.save(new Author(author.getId(), changeFullName));
+        showMessage(AUTHOR_UPDATED + " " + changeFullName);
     }
 
 
     @Override
-    public boolean delete(String  name) {
-        if (existsByName(name)) {
-            Author author = authorRepository.findByName(name);
-            authorRepository.deleteById(author.getId());
-            return true;
-        } else return false;
+    public void delete() {
+        showMessage(AUTHOR_DELETE);
+        Author author = findAuthorByName();
+        authorRepository.deleteById(author.getId());
+        showMessage(AUTHOR_DELETED_SUCCESS);
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        Author author = findById(id);
-        if(author!=null) {
-            authorRepository.deleteById(author.getId());
-            return true;
-        } else return false;
+    public Author findByName() {
+        return findAuthorByName();
     }
 
-    @Override
-    public boolean existsByName(String name) {
-        return authorRepository.existsByName(name);
-    }
-
-    @Override
-    public boolean existsById(Long id) {
-        if (id != null) {
-            return authorRepository.existsById(id);
-        }
-        return false;
-    }
-
-
-
-    @Transactional
-    @Override
-    public Author findById(Long id) {
-            return authorRepository.findById(id).orElse(null);
-    }
-
-    @Transactional
-    @Override
-    public Author findByName(String name) {
-        return findAuthorByName(name);
-    }
-
-    @Transactional
     @Override
     public List<Author> findAll() {
         return authorRepository.findAll();
     }
-
 }
